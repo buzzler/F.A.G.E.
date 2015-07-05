@@ -2,8 +2,26 @@ using UnityEngine;
 using System.Collections;
 using Fage;
 using Fage.Events;
+using Fage.FSM;
 
-public class Tester : EventDispatcher {
+public	class TestState : State {
+	public	TestState() {
+	}
+
+	public new void AfterSwitch (StateMachine stateMachine, string beforeId)
+	{
+	}
+
+	public new void Excute (StateMachine stateMachine)
+	{
+	}
+
+	public new void BeforeSwitch (StateMachine stateMachine, string afterId)
+	{
+	}
+}
+
+public	class Tester : StateMachine {
 
 	bool dispatched;
 
@@ -19,6 +37,7 @@ public class Tester : EventDispatcher {
 			DispatchEvent (new FageEvent ("eventType", "Hello World"));
 			DispatchEvent (new FageEvent ("eventType2", "Hello World"));
 			DispatchEvent (new FageEvent ("eventType", 23456789));
+			DispatchEvent (new FageEvent (FageEvent.ERROR, 17223));
 			dispatched = true;
 		}
 	}
