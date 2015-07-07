@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 
 public class ConnectionPing : FageState {
-	private const float _TIMEOUT = 10;
+//	private	const string _URL_1		= "http://www.google.com/blank.html";
+//	private const string _URL_2		= "http://www.msftncsi.com/ncsi.txt";
+	private const float _TIMEOUT	= 10;
+	private	const float _ITERATE	= 20;
+
 	private	Ping	_ping;
 	private float	_start_time;
+	private float	_last_time;
 	private	bool	_online;
 
 	private	void InitPing() {
@@ -12,6 +17,7 @@ public class ConnectionPing : FageState {
 		}
 		_ping = null;
 		_start_time = 0;
+		_last_time = 0;
 	}
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
@@ -37,10 +43,14 @@ public class ConnectionPing : FageState {
 			bool last = _online;
 			if (_ping.isDone) {
 				InitPing();
+				_last_time = Time.realtimeSinceStartup;
 				_online = true;
 			} else if ((Time.realtimeSinceStartup - _start_time) > _TIMEOUT) {
 				InitPing();
+				_last_time = Time.realtimeSinceStartup;
 				_online = false;
+			} else {
+				return;
 			}
 
 			if (last != _online) {
@@ -49,6 +59,8 @@ public class ConnectionPing : FageState {
 				} else {
 					FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
 				}
+			} else {
+				FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_PING));
 			}
 		}
 
@@ -56,7 +68,7 @@ public class ConnectionPing : FageState {
 			ConnectionSensor cs = stateMachine as ConnectionSensor;
 			if (cs.GetMessageCount () > 0) {
 				cs.ReserveState ("ConnectionRequest");
-			} else {
+			} else if ((Time.realtimeSinceStartup - _last_time) >= _ITERATE) {
 				_ping = new Ping ("8.8.8.8");
 				_start_time = Time.realtimeSinceStartup;
 			}

@@ -6,6 +6,7 @@
 	public	const string SENSOR_QUIT		= "sensorQuit";
 	public	const string SENSOR_ONLINE		= "sensorOnline";
 	public	const string SENSOR_OFFLINE		= "sensorOffline";
+	public	const string SENSOR_PING		= "sensorPing";
 	public	const string SENSOR_SOCIAL		= "sensorSocial";
 	
 	private	string _type;
