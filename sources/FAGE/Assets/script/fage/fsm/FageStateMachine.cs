@@ -59,12 +59,6 @@ public	class FageStateMachine : FageEventDispatcher {
 			_current.AfterSwitch (this, temp);
 		}
 	}
-
-	public	virtual void SendMessage(FageMessage message) {
-		if (_current != null) {
-			_current.ReceiveMessage(this, message);
-		}
-	}
 	
 	public	virtual	void SetBool(string key, bool value) {
 		_bool [key] = value;

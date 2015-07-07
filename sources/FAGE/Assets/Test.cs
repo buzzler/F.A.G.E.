@@ -3,21 +3,22 @@ using System.Collections;
 
 public class Test : FageEventDispatcher {
 
-	void Awake() {
-		FageEventDispatcher.AddEventListener (FageEvent.SENSOR_ONLINE, new FageEventHandler (OnLine));
-		FageEventDispatcher.AddEventListener (FageEvent.SENSOR_OFFLINE, new FageEventHandler (OffLine));
-		FageEventDispatcher.AddEventListener (FageEvent.SENSOR_PING, new FageEventHandler (OnPing));
+	void OnEnable() {
 	}
 
-	public	void OnLine(FageEvent fevent) {
-		Debug.Log ("ONLINE!");
+	void OnDisable() {
 	}
 
-	public	void OffLine(FageEvent fevent) {
-		Debug.Log ("OFFLINE!");
+	void OnGUI() {
+		if (GUI.Button (new Rect (0,0,Screen.width, Screen.height/2), "REQUEST")) {
+			AddEventListener(FageEvent.SENSOR_RESPONSE, OnResponse);
+			DispatchEvent(new FageEvent(FageEvent.SENSOR_REQUEST, new FageRequest(name, "http://google.com")));
+		}
 	}
 
-	public	void OnPing(FageEvent fevent) {
-		Debug.Log ("PING!");
+	private void OnResponse(FageEvent fevent) {
+		FageResponse response = fevent.data as FageResponse;
+		Debug.Log (response.www.text);
+		RemoveEventListener(FageEvent.SENSOR_RESPONSE, OnResponse);
 	}
 }

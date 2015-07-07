@@ -21,8 +21,4 @@ public	class FageState {
 	
 	public	virtual	void Excute(FageStateMachine stateMachine) {
 	}
-
-	public	virtual void ReceiveMessage(FageStateMachine stateMachine, FageMessage message) {
-		FageEventDispatcher.Log (stateMachine.id + "/" + id + ": ReceiveMessage from " + message.sender);
-	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 [AddComponentMenu("Fage/Events/FageEventDispatcher")]
 public	class FageEventDispatcher : MonoBehaviour {
+	private		static event FageEventHandler dummy;
 	private		const	int			MAX_LOG		= 50;
 	private		static	object[]	log_stack	= new object[MAX_LOG];
 	private		static	int			log_index	= 0;
@@ -18,8 +19,12 @@ public	class FageEventDispatcher : MonoBehaviour {
 		if (event_hash.ContainsKey (type)) {
 			FageEventHandler handler = event_hash [type] as FageEventHandler;
 			handler += func;
+			event_hash [type] = handler;
 		} else {
-			event_hash.Add (type, func);
+			dummy += func;
+			FageEventHandler handler = dummy.Clone() as FageEventHandler;
+			dummy -= func;
+			event_hash.Add (type, handler);
 		}
 	}
 	
@@ -27,6 +32,7 @@ public	class FageEventDispatcher : MonoBehaviour {
 		if (event_hash.ContainsKey (type)) {
 			FageEventHandler handler = event_hash [type] as FageEventHandler;
 			handler -= func;
+			event_hash [type] = handler;
 		}
 	}
 	

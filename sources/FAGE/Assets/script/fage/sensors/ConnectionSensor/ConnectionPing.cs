@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class ConnectionPing : FageState {
+	private	const string _ADDRESS	= "8.8.8.8";
 //	private	const string _URL_1		= "http://www.google.com/blank.html";
 //	private const string _URL_2		= "http://www.msftncsi.com/ncsi.txt";
 	private const float _TIMEOUT	= 10;
@@ -10,6 +11,7 @@ public class ConnectionPing : FageState {
 	private float	_start_time;
 	private float	_last_time;
 	private	bool	_online;
+	private	int		_ping_time;
 
 	private	void InitPing() {
 		if (_ping != null) {
@@ -17,7 +19,7 @@ public class ConnectionPing : FageState {
 		}
 		_ping = null;
 		_start_time = 0;
-		_last_time = 0;
+		_last_time = -_ITERATE;
 	}
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
@@ -42,10 +44,12 @@ public class ConnectionPing : FageState {
 		if (_ping != null) {
 			bool last = _online;
 			if (_ping.isDone) {
+				_ping_time = _ping.time;
 				InitPing();
 				_last_time = Time.realtimeSinceStartup;
 				_online = true;
 			} else if ((Time.realtimeSinceStartup - _start_time) > _TIMEOUT) {
+				_ping_time = (int)_TIMEOUT * 1000;
 				InitPing();
 				_last_time = Time.realtimeSinceStartup;
 				_online = false;
@@ -60,17 +64,23 @@ public class ConnectionPing : FageState {
 					FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
 				}
 			} else {
-				FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_PING));
+				FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_PING, _ping_time));
 			}
 		}
 
 		if (_ping == null) {
 			ConnectionSensor cs = stateMachine as ConnectionSensor;
-			if (cs.GetMessageCount () > 0) {
-				cs.ReserveState ("ConnectionRequest");
-			} else if ((Time.realtimeSinceStartup - _last_time) >= _ITERATE) {
-				_ping = new Ping ("8.8.8.8");
+//			if (cs.GetRequestCount () > 0) {
+//				cs.ReserveState ("ConnectionRequest");
+//			} else if ((Time.realtimeSinceStartup - _last_time) >= _ITERATE) {
+//				_ping = new Ping (_ADDRESS);
+//				_start_time = Time.realtimeSinceStartup;
+//			}
+			if ((Time.realtimeSinceStartup - _last_time) >= _ITERATE) {
+				_ping = new Ping (_ADDRESS);
 				_start_time = Time.realtimeSinceStartup;
+			} else if (cs.GetRequestCount () > 0) {
+				cs.ReserveState ("ConnectionRequest");
 			}
 		}
 	}
