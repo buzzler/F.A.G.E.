@@ -4,5 +4,6 @@
 	STOP,
 	PAUSE,
 	RESUME,
-	VOLUMN
+	VOLUMN,
+	STATUS
 }

@@ -12,6 +12,7 @@
 	public	const string FILE_REQUEST	= "fileRequest";
 	public	const string FILE_RESPONSE	= "fileResponse";
 	public	const string AUDIO_REQUEST	= "audioRequest";
+	public	const string AUDIO_RESPONSE	= "audioResponse";
 	
 	private	string _type;
 	private	object _data;

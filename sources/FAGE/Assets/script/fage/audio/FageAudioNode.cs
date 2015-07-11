@@ -35,9 +35,8 @@ public	class FageAudioNode {
 	public	float GetVolumn() {
 		float vol = volumn;
 		FageAudioNode ancient = GetParent ();
-		while (ancient!=null) {
-			vol *= ancient.volumn;
-			ancient = GetParent ();
+		if (ancient!=null) {
+			return  vol * ancient.GetVolumn();
 		}
 		return vol;
 	}

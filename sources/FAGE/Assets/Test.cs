@@ -10,18 +10,22 @@ public class Test : FageEventDispatcher {
 	}
 
 	void OnGUI() {
-		if (GUI.Button (new Rect (0,0,Screen.width, Screen.height/2), "REQUEST")) {
-			AddEventListener(FageEvent.FILE_RESPONSE, OnResponse);
-			byte[] data = new byte[100];
-			for (int i = 0 ; i < 100 ; i++) {
-				data[i] = (byte)i;
-			}
-			DispatchEvent(new FageEvent(FageEvent.FILE_REQUEST, new FageFileRequest(name, Application.persistentDataPath + "/ghghgh.gh", FageFileMode.SAVE_ASYNC, data) ));
+		if (GUI.Button (new Rect (0,0,Screen.width, Screen.height/2), "REQUEST1")) {
+			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "background", "clips/POL-lunar-love-short", true);
+			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
+			DispatchEvent(fevent);
+		}
+		if (GUI.Button (new Rect (0,Screen.height/2,Screen.width, Screen.height/2), "REQUEST2")) {
+			AddEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
+			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.STATUS, "background", "clips/POL-lunar-love-short");
+			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
+			DispatchEvent(fevent);
 		}
 	}
 
 	private void OnResponse(FageEvent fevent) {
-		Debug.Log ("SAVED!");
-		RemoveEventListener(FageEvent.FILE_RESPONSE, OnResponse);
+		RemoveEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
+		FageAudioResponse response = fevent.data as FageAudioResponse;
+		Debug.Log(response.status);
 	}
 }

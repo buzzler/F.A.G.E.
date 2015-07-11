@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class FageAudioPooler {
 	private	FageAudioNode 	_node;
@@ -17,6 +18,10 @@ public class FageAudioPooler {
 		}
 	}
 
+	public	AudioSource[] GetAudioSources() {
+		return _sources;
+	}
+
 	public	AudioSource GetFreeAudioSource() {
 		if (_node.channels == 0) {
 			return null;
@@ -28,5 +33,15 @@ public class FageAudioPooler {
 		}
 		_index = (_index + 1) % _node.channels;
 		return src;
+	}
+
+	public	AudioSource[] FindAudioSources(AudioClip clip) {
+		List<AudioSource> buffer = new List<AudioSource>();
+		foreach (AudioSource asource in _sources) {
+			if (asource.clip==clip) {
+				buffer.Add(asource);
+			}
+		}
+		return buffer.ToArray();
 	}
 }
