@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public static class FageResource {
+public static class CachedResource {
 
 	private	static Dictionary<string, Object> _cache = new Dictionary<string, Object>();
 

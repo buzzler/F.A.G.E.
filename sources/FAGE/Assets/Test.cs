@@ -16,16 +16,10 @@ public class Test : FageEventDispatcher {
 			DispatchEvent(fevent);
 		}
 		if (GUI.Button (new Rect (0,Screen.height/2,Screen.width, Screen.height/2), "REQUEST2")) {
-			AddEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
-			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.STATUS, "background", "clips/POL-lunar-love-short");
+			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "effect", "clips/NFF-coin-03");
 			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
 			DispatchEvent(fevent);
 		}
 	}
 
-	private void OnResponse(FageEvent fevent) {
-		RemoveEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
-		FageAudioResponse response = fevent.data as FageAudioResponse;
-		Debug.Log(response.status);
-	}
 }

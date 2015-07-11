@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FageAudioManager : FageEventDispatcher {
@@ -60,7 +60,7 @@ public class FageAudioManager : FageEventDispatcher {
 	}
 
 	private	void OnPause(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource[] asources = pooler.FindAudioSources(FageResource.Load<AudioClip>(request.source));
+		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
 		foreach (AudioSource asource in asources) {
 			asource.Pause();
 		}
@@ -68,14 +68,14 @@ public class FageAudioManager : FageEventDispatcher {
 
 	private	void OnPlay(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
 		AudioSource asource = pooler.GetFreeAudioSource();
-		asource.clip = FageResource.Load<AudioClip>(request.source);
+		asource.clip = CachedResource.Load<AudioClip>(request.source);
 		asource.loop = request.loop;
 		asource.volume = node.GetVolumn();
 		asource.Play();
 	}
 
 	private	void OnResume(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource[] asources = pooler.FindAudioSources(FageResource.Load<AudioClip>(request.source));
+		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
 		foreach (AudioSource asource in asources) {
 			asource.volume = node.GetVolumn();
 			asource.UnPause();
@@ -83,7 +83,7 @@ public class FageAudioManager : FageEventDispatcher {
 	}
 
 	private	void OnStop(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource[] asources = pooler.FindAudioSources(FageResource.Load<AudioClip>(request.source));
+		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
 		foreach (AudioSource asource in asources) {
 			asource.Stop();
 		}
@@ -100,7 +100,7 @@ public class FageAudioManager : FageEventDispatcher {
 
 	private	void OnStatus(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
 		FageAudioStatus status = FageAudioStatus.NONE;
-		AudioSource[] asources = pooler.FindAudioSources(FageResource.Load<AudioClip>(request.source));
+		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
 		if (asources.Length>0) {
 			AudioSource asource = asources[0];
 			if (asource.isPlaying) {
