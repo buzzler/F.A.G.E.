@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Test : FageEventDispatcher {
@@ -11,14 +11,17 @@ public class Test : FageEventDispatcher {
 
 	void OnGUI() {
 		if (GUI.Button (new Rect (0,0,Screen.width, Screen.height/2), "REQUEST")) {
-			AddEventListener(FageEvent.SENSOR_RESPONSE, OnResponse);
-			DispatchEvent(new FageEvent(FageEvent.SENSOR_REQUEST, new FageRequest(name, "http://google.com")));
+			AddEventListener(FageEvent.FILE_RESPONSE, OnResponse);
+			byte[] data = new byte[100];
+			for (int i = 0 ; i < 100 ; i++) {
+				data[i] = (byte)i;
+			}
+			DispatchEvent(new FageEvent(FageEvent.FILE_REQUEST, new FageFileRequest(name, Application.persistentDataPath + "/ghghgh.gh", FageFileMode.SAVE_ASYNC, data) ));
 		}
 	}
 
 	private void OnResponse(FageEvent fevent) {
-		FageResponse response = fevent.data as FageResponse;
-		Debug.Log (response.www.text);
-		RemoveEventListener(FageEvent.SENSOR_RESPONSE, OnResponse);
+		Debug.Log ("SAVED!");
+		RemoveEventListener(FageEvent.FILE_RESPONSE, OnResponse);
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FageResponse {
+public class FageWebResponse {
 	private	string	_receiver;
 	private WWW		_www;
 	
@@ -8,7 +8,7 @@ public class FageResponse {
 	public	string	url			{ get { return _www.url; } }
 	public	WWW		www			{ get { return _www; } }
 	
-	public	FageResponse(string receiver, WWW www) {
+	public	FageWebResponse(string receiver, WWW www) {
 		if (!www.isDone) {
 			new UnityException();
 		}

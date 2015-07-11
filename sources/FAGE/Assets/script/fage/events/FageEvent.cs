@@ -1,14 +1,17 @@
 ﻿public	class FageEvent {
-	public	const string SENSOR_ERROR		= "sensorError";
-	public	const string SENSOR_SCREEN		= "sensorScreen";
-	public	const string SENSOR_PAUSE		= "sensorPause";
-	public	const string SENSOR_RESUME		= "sensorResume";
-	public	const string SENSOR_QUIT		= "sensorQuit";
-	public	const string SENSOR_ONLINE		= "sensorOnline";
-	public	const string SENSOR_OFFLINE		= "sensorOffline";
-	public	const string SENSOR_PING		= "sensorPing";
-	public	const string SENSOR_REQUEST		= "sensorRequest";
-	public	const string SENSOR_RESPONSE	= "sensorResponse";
+	public	const string SENSOR_ERROR	= "sensorError";
+	public	const string SENSOR_SCREEN	= "sensorScreen";
+	public	const string SENSOR_PAUSE	= "sensorPause";
+	public	const string SENSOR_RESUME	= "sensorResume";
+	public	const string SENSOR_QUIT	= "sensorQuit";
+	public	const string SENSOR_ONLINE	= "sensorOnline";
+	public	const string SENSOR_OFFLINE	= "sensorOffline";
+	public	const string SENSOR_PING	= "sensorPing";
+	public	const string WEB_REQUEST	= "webRequest";
+	public	const string WEB_RESPONSE	= "webResponse";
+	public	const string FILE_REQUEST	= "fileRequest";
+	public	const string FILE_RESPONSE	= "fileResponse";
+	public	const string AUDIO_REQUEST	= "audioRequest";
 	
 	private	string _type;
 	private	object _data;

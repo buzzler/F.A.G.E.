@@ -69,18 +69,9 @@ public class ConnectionPing : FageState {
 		}
 
 		if (_ping == null) {
-			ConnectionSensor cs = stateMachine as ConnectionSensor;
-//			if (cs.GetRequestCount () > 0) {
-//				cs.ReserveState ("ConnectionRequest");
-//			} else if ((Time.realtimeSinceStartup - _last_time) >= _ITERATE) {
-//				_ping = new Ping (_ADDRESS);
-//				_start_time = Time.realtimeSinceStartup;
-//			}
 			if ((Time.realtimeSinceStartup - _last_time) >= _ITERATE) {
 				_ping = new Ping (_ADDRESS);
 				_start_time = Time.realtimeSinceStartup;
-			} else if (cs.GetRequestCount () > 0) {
-				cs.ReserveState ("ConnectionRequest");
 			}
 		}
 	}
