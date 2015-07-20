@@ -2,8 +2,6 @@
 
 public class ConnectionPing : FageState {
 	private	const string _ADDRESS	= "8.8.8.8";
-//	private	const string _URL_1		= "http://www.google.com/blank.html";
-//	private const string _URL_2		= "http://www.msftncsi.com/ncsi.txt";
 	private const float _TIMEOUT	= 10;
 	private	const float _ITERATE	= 20;
 
@@ -20,6 +18,10 @@ public class ConnectionPing : FageState {
 		_ping = null;
 		_start_time = 0;
 		_last_time = -_ITERATE;
+	}
+
+	public	bool IsOnline() {
+		return _online;
 	}
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
