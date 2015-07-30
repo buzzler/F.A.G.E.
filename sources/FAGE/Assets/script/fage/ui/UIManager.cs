@@ -11,12 +11,23 @@ public class UIManager : FageEventDispatcher {
 
 
 public	class UIMem {
-	private	string _resource;
+	private	string		_resourcePath;
+	private	GameObject	_gameObject;
 
-	public	string resource { get { return _resource; } }
+	public	string		resourcePath	{ get { return _resourcePath; } }
+	public	GameObject	gameObject		{ get { return _gameObject; } }
 
-	public	UIMem(string resource) {
-		_resource = resource;
+	public	UIMem(string resourcePath) {
+		_resourcePath = resourcePath;
+	}
+
+	public	void Instantiate() {
+		GameObject cach = CachedResource.Load<GameObject>(_resourcePath);
+		_gameObject = GameObject.Instantiate<GameObject>(cach);
+	}
+
+	public	void Destroy() {
+		_gameObject.DestroyPooled();
 	}
 }
 

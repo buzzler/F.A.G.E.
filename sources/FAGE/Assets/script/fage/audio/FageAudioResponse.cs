@@ -1,12 +1,12 @@
 ﻿public	class FageAudioResponse {
-	private	string			_receiver;
-	private	FageAudioStatus	_status;
+	private	string					_receiver;
+	private	FageAudioSourceControl	_control;
 	
-	public	string			receiver	{ get { return _receiver; } }
-	public	FageAudioStatus	status		{ get { return _status; } }
+	public	string					receiver	{ get { return _receiver; } }
+	public	FageAudioSourceControl	control		{ get { return _control; } }
 	
-	public	FageAudioResponse(string receiver, FageAudioStatus status) {
+	public	FageAudioResponse(string receiver, FageAudioSourceControl control) {
 		_receiver = receiver;
-		_status = status;
+		_control = control;
 	}
 }

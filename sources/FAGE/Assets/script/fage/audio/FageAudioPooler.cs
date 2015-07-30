@@ -2,44 +2,46 @@
 using System.Collections.Generic;
 
 public class FageAudioPooler {
-	private	FageAudioNode 	_node;
-	private	AudioSource[]	_sources;
-	private	int				_index;
+	private	FageAudioNode 				_node;
+	private	FageAudioSourceControl[]	_controls;
+	private	int							_index;
 
 	public	FageAudioPooler(FageAudioNode node, GameObject listener) {
 		_node = node;
-		_sources = new AudioSource[_node.channels];
 		_index = 0;
+		_controls = new FageAudioSourceControl[node.channels];
 
 		for (int i = 1; i <= _node.channels; i++) {
-			GameObject child = new GameObject (node.name + " " + i.ToString (), typeof(AudioSource));
+			GameObject child = new GameObject (node.name + " " + i.ToString (), typeof(AudioSource), typeof(FageAudioSourceControl));
 			child.transform.SetParent (listener.transform);
-			_sources [i - 1] = child.GetComponent<AudioSource> ();
+			FageAudioSourceControl control = child.GetComponent<FageAudioSourceControl>();
+			control.enabled = false;
+			_controls[i - 1] = control;
 		}
 	}
 
-	public	AudioSource[] GetAudioSources() {
-		return _sources;
+	public	FageAudioSourceControl[] GetAudioSourceControls() {
+		return _controls;
 	}
 
-	public	AudioSource GetFreeAudioSource() {
+	public	FageAudioSourceControl GetFreeAudioSourceControl() {
 		if (_node.channels == 0) {
 			return null;
 		}
 
-		AudioSource src = _sources [_index];
-		if (src.isPlaying) {
-			src.Stop ();
+		FageAudioSourceControl control = _controls [_index];
+		if (control.audioStatus==FageAudioStatus.PLAYING) {
+			control.Stop ();
 		}
 		_index = (_index + 1) % _node.channels;
-		return src;
+		return control;
 	}
 
-	public	AudioSource[] FindAudioSources(AudioClip clip) {
-		List<AudioSource> buffer = new List<AudioSource>();
-		foreach (AudioSource asource in _sources) {
-			if (asource.clip==clip) {
-				buffer.Add(asource);
+	public	FageAudioSourceControl[] FindAudioSourceControl(AudioClip clip) {
+		List<FageAudioSourceControl> buffer = new List<FageAudioSourceControl>();
+		foreach (FageAudioSourceControl control in _controls) {
+			if (control.audioSource.clip==clip) {
+				buffer.Add(control);
 			}
 		}
 		return buffer.ToArray();

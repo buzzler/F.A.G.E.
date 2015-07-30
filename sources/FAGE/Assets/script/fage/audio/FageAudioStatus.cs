@@ -1,6 +1,6 @@
-﻿public enum FageAudioStatus {
+public enum FageAudioStatus {
 	NONE = 0,
 	PLAYING,
-	STOPPED,
+	READY,
 	PAUSED
 }

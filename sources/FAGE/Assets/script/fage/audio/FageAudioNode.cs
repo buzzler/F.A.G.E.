@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
@@ -32,11 +32,11 @@ public	class FageAudioNode {
 		return null;
 	}
 
-	public	float GetVolumn() {
+	public	float GetVolume() {
 		float vol = volumn;
 		FageAudioNode ancient = GetParent ();
 		if (ancient!=null) {
-			return  vol * ancient.GetVolumn();
+			return  vol * ancient.GetVolume();
 		}
 		return vol;
 	}

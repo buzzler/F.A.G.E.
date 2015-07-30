@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Test : FageEventDispatcher {
+	private	FageAudioSourceControl control;
 
 	void OnEnable() {
 	}
@@ -11,8 +12,15 @@ public class Test : FageEventDispatcher {
 
 	void OnGUI() {
 		if (GUI.Button (new Rect (0,0,Screen.width, Screen.height/2), "REQUEST1")) {
-			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "background", "clips/POL-lunar-love-short", true);
+			if (control!=null) {
+				control.onLoop -= OnAudioLoop;
+				control.onStatus -= OnAudioStatus;
+				control = null;
+			}
+
+			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "background", "clips/POL-lunar-love-short", true, true);
 			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
+			AddEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
 			DispatchEvent(fevent);
 		}
 		if (GUI.Button (new Rect (0,Screen.height/2,Screen.width, Screen.height/2), "REQUEST2")) {
@@ -22,4 +30,22 @@ public class Test : FageEventDispatcher {
 		}
 	}
 
+
+	private	void OnResponse(FageEvent fevent) {
+		RemoveEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
+		FageAudioResponse response = fevent.data as FageAudioResponse;
+		if (response.control!=null) {
+			control = response.control;
+			control.onLoop += OnAudioLoop;
+			control.onStatus += OnAudioStatus;
+		}
+	}
+
+	private	void OnAudioLoop(FageAudioSourceControl control) {
+		Debug.Log("LOOP");
+	}
+
+	private	void OnAudioStatus(FageAudioSourceControl control) {
+		Debug.Log("STATUS:"+control.audioStatus.ToString());
+	}
 }

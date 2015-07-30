@@ -39,7 +39,9 @@ public	class FageEventDispatcher : MonoBehaviour {
 	public	static void DispatchEvent(FageEvent fevent) {
 		if ((fevent != null) && event_hash.ContainsKey (fevent.type)) {
 			FageEventHandler handler = event_hash [fevent.type] as FageEventHandler;
-			handler (fevent);
+			if (handler!=null) {
+				handler (fevent);
+			}
 		}
 	}
 }

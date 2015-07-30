@@ -33,18 +33,16 @@ public class FageAudioManager : FageEventDispatcher {
 		while (_index > 0) {
 			_index--;
 			FageAudioRequest request = _requests[_index];
-			if (request!=null) {
-				FageAudioNode node = FageAudioNode.Find(request.node);
-				FageAudioPooler pooler = _hashtable[node] as FageAudioPooler;
-				if (node!=null) {
-					switch (request.command) {
-					case FageAudioCommand.PAUSE:	OnPause(request, node, pooler);	break;
-					case FageAudioCommand.PLAY:		OnPlay(request, node, pooler);	break;
-					case FageAudioCommand.RESUME:	OnResume(request, node, pooler);break;
-					case FageAudioCommand.STOP:		OnStop(request, node, pooler);	break;
-					case FageAudioCommand.VOLUMN:	OnVolumn(request, node,pooler);	break;
-					case FageAudioCommand.STATUS:	OnStatus(request, node, pooler);break;
-					}
+			if (request==null) {
+				continue;
+			}
+
+			FageAudioNode node = FageAudioNode.Find(request.node);
+			FageAudioPooler pooler = _hashtable[node] as FageAudioPooler;
+			if (node!=null) {
+				switch (request.command) {
+				case FageAudioCommand.PLAY:		OnPlay(request, node, pooler);	break;
+				case FageAudioCommand.VOLUME:	OnVolume(request, node,pooler);	break;
 				}
 			}
 		}
@@ -59,59 +57,22 @@ public class FageAudioManager : FageEventDispatcher {
 		_index++;
 	}
 
-	private	void OnPause(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
-		foreach (AudioSource asource in asources) {
-			asource.Pause();
-		}
-	}
-
 	private	void OnPlay(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource asource = pooler.GetFreeAudioSource();
-		asource.clip = CachedResource.Load<AudioClip>(request.source);
-		asource.loop = request.loop;
-		asource.volume = node.GetVolumn();
-		asource.Play();
-	}
+		FageAudioSourceControl control = pooler.GetFreeAudioSourceControl();
+		control.Play(CachedResource.Load<AudioClip>(request.source), request.loop, node.GetVolume(), request.control);
 
-	private	void OnResume(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
-		foreach (AudioSource asource in asources) {
-			asource.volume = node.GetVolumn();
-			asource.UnPause();
+		if (request.control) {
+			DispatchEvent(new FageEvent(FageEvent.AUDIO_RESPONSE, new FageAudioResponse(request.sender, control.GetComponent<FageAudioSourceControl>())));
 		}
 	}
 
-	private	void OnStop(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
-		foreach (AudioSource asource in asources) {
-			asource.Stop();
-		}
-	}
-
-	private	void OnVolumn(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
+	private	void OnVolume(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
 		node.volumn = Mathf.Clamp(request.volumn, 0f, 1f);
-		float v = node.GetVolumn();
-		AudioSource[] asources = pooler.GetAudioSources();
-		foreach (AudioSource asource in asources) {
-			asource.volume = v;
+		float v = node.GetVolume();
+		FageAudioSourceControl[] controls = pooler.GetAudioSourceControls();
+		foreach (FageAudioSourceControl control in controls) {
+			control.volume = v;
 		}
-	}
-
-	private	void OnStatus(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		FageAudioStatus status = FageAudioStatus.NONE;
-		AudioSource[] asources = pooler.FindAudioSources(CachedResource.Load<AudioClip>(request.source));
-		if (asources.Length>0) {
-			AudioSource asource = asources[0];
-			if (asource.isPlaying) {
-				status = FageAudioStatus.PLAYING;
-			} else if (asource.time > 0) {
-				status = FageAudioStatus.PAUSED;
-			} else {
-				status = FageAudioStatus.STOPPED;
-			}
-		}
-		DispatchEvent(new FageEvent(FageEvent.AUDIO_RESPONSE, new FageAudioResponse(request.sender, status)));
 	}
 }
 
