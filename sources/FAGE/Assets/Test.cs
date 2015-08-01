@@ -5,13 +5,14 @@ public class Test : FageEventDispatcher {
 	private	FageAudioSourceControl control;
 
 	void OnEnable() {
+
 	}
 
 	void OnDisable() {
 	}
 
 	void OnGUI() {
-		if (GUI.Button (new Rect (0,0,Screen.width, Screen.height/2), "REQUEST1")) {
+		if (GUI.Button (new Rect (0,0,Screen.width/2, Screen.height/2), "REQUEST1")) {
 			if (control!=null) {
 				control.onLoop -= OnAudioLoop;
 				control.onStatus -= OnAudioStatus;
@@ -23,7 +24,7 @@ public class Test : FageEventDispatcher {
 			AddEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
 			DispatchEvent(fevent);
 		}
-		if (GUI.Button (new Rect (0,Screen.height/2,Screen.width, Screen.height/2), "REQUEST2")) {
+		if (GUI.Button (new Rect (Screen.width/2,0,Screen.width/2, Screen.height/2), "REQUEST2")) {
 			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "effect", "clips/NFF-coin-03");
 			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
 			DispatchEvent(fevent);
