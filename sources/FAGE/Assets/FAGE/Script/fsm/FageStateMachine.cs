@@ -7,11 +7,7 @@ using System.Collections;
 public	class FageStateMachine : FageEventDispatcher {
 	public	string		reserve;
 	private string		_id;
-	private	FageState	_current;
-	private	Hashtable	_bool;
-	private	Hashtable	_trigger;
-	private	Hashtable	_int;
-	private	Hashtable	_float;
+	public	FageState	_current;
 	
 	public	string id {
 		get {
@@ -21,10 +17,6 @@ public	class FageStateMachine : FageEventDispatcher {
 
 	public	FageStateMachine() {
 		_id			= GetType().FullName + "(" + GetInstanceID().ToString() + ")";
-		_bool		= new Hashtable ();
-		_trigger	= new Hashtable ();
-		_int		= new Hashtable ();
-		_float		= new Hashtable ();
 	}
 	
 	public	FageState current {
@@ -57,48 +49,6 @@ public	class FageStateMachine : FageEventDispatcher {
 		
 		if (_current != null) {
 			_current.AfterSwitch (this, temp);
-		}
-	}
-	
-	public	virtual	void SetBool(string key, bool value) {
-		_bool [key] = value;
-	}
-	
-	public	virtual	bool GetBool(string key) {
-		return (bool)GetObject (_bool, key);
-	}
-	
-	public	virtual	void SetTrigger(string key) {
-		_trigger [key] = true;
-	}
-	
-	public	virtual	bool GetTrigger(string key) {
-		bool result = (bool)GetObject (_trigger, key);
-		_trigger [key] = false;
-		return result;
-	}
-	
-	public	virtual	void SetInt(string key, int value) {
-		_int [key] = value;
-	}
-	
-	public	virtual	int GetInt(string key) {
-		return (int)GetObject (_int, key);
-	}
-	
-	public	virtual	void SetFloat(string key, float value) {
-		_float [key] = value;
-	}
-	
-	public	virtual	float GetFloat(string key) {
-		return (float)GetObject (_float, key);
-	}
-	
-	private object GetObject(Hashtable hash, string key) {
-		if ((hash != null) && (hash.ContainsKey (key))) {
-			return hash [key];
-		} else {
-			throw new UnityException ();
 		}
 	}
 

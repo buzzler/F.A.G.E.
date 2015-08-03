@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public	class FageState {
 	private string _id;
 	
