@@ -13,6 +13,10 @@
 	public	const string FILE_RESPONSE	= "fileResponse";
 	public	const string AUDIO_REQUEST	= "audioRequest";
 	public	const string AUDIO_RESPONSE	= "audioResponse";
+	public	const string UI_POPUP		= "uiPopup";
+	public	const string UI_CHANGE		= "uiChange";
+	public	const string UI_RETURN		= "uiReturn";
+	public	const string UI_FLUSH		= "uiFlush";
 	
 	private	string _type;
 	private	object _data;
