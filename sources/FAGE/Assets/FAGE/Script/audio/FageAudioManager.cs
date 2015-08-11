@@ -2,16 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class FageAudioManager : FageEventDispatcher {
+	private	static FageAudioManager _instance;
+	public	static FageAudioManager Instance { get { return _instance; } }
 	public	FageAudioNode[]		nodes;
-	private	const int			_MAX_QUEUE = 20;
-	private	FageAudioRequest[]	_requests;
-	private	int					_index;
 	private	Hashtable			_hashtable;
 	private	GameObject			_listener;
 
 	void Awake() {
-		_requests = new FageAudioRequest[_MAX_QUEUE];
-		_index = 0;
+		_instance = this;
 		_hashtable = new Hashtable ();
 		_listener = new GameObject("AudioChannels", typeof(AudioListener));
 		_listener.transform.SetParent (transform);
@@ -21,57 +19,25 @@ public class FageAudioManager : FageEventDispatcher {
 		}
 	}
 
-	void OnEnable() {
-		AddEventListener (FageEvent.AUDIO_REQUEST, OnRequest);
+	public	void Play(string nodeId, string resourcePath, ref FageAudioSourceControl audioSourceControl, bool loop = false) {
+		FageAudioNode node = FageAudioNode.Find(nodeId);
+		audioSourceControl = (_hashtable[node] as FageAudioPooler).GetFreeAudioSourceControl();
+		audioSourceControl.Play(CachedResource.Load<AudioClip>(resourcePath), loop, node.GetVolume(), true);
 	}
 
-	void OnDisable() {
-		RemoveEventListener (FageEvent.AUDIO_REQUEST, OnRequest);
+	public	void Play(string nodeId, string resourcePath, bool loop = false) {
+		FageAudioNode node = FageAudioNode.Find(nodeId);
+		FageAudioSourceControl audioSourceControl = (_hashtable[node] as FageAudioPooler).GetFreeAudioSourceControl();
+		audioSourceControl.Play(CachedResource.Load<AudioClip>(resourcePath), loop, node.GetVolume(), false);
 	}
 
-	void Update() {
-		while (_index > 0) {
-			_index--;
-			FageAudioRequest request = _requests[_index];
-			if (request==null) {
-				continue;
-			}
-
-			FageAudioNode node = FageAudioNode.Find(request.node);
-			FageAudioPooler pooler = _hashtable[node] as FageAudioPooler;
-			if (node!=null) {
-				switch (request.command) {
-				case FageAudioCommand.PLAY:		OnPlay(request, node, pooler);	break;
-				case FageAudioCommand.VOLUME:	OnVolume(request, node,pooler);	break;
-				}
-			}
-		}
-	}
-
-	private	void OnRequest(FageEvent fevent) {
-		if (_index >= _MAX_QUEUE) {
-			throw new UnityException ();
-		}
-
-		_requests [_index] = fevent.data as FageAudioRequest;
-		_index++;
-	}
-
-	private	void OnPlay(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		FageAudioSourceControl control = pooler.GetFreeAudioSourceControl();
-		control.Play(CachedResource.Load<AudioClip>(request.source), request.loop, node.GetVolume(), request.control);
-
-		if (request.control) {
-			DispatchEvent(new FageEvent(FageEvent.AUDIO_RESPONSE, new FageAudioResponse(request.sender, control.GetComponent<FageAudioSourceControl>())));
-		}
-	}
-
-	private	void OnVolume(FageAudioRequest request, FageAudioNode node, FageAudioPooler pooler) {
-		node.volumn = Mathf.Clamp(request.volumn, 0f, 1f);
-		float v = node.GetVolume();
-		FageAudioSourceControl[] controls = pooler.GetAudioSourceControls();
+	public	void SetVolume(string nodeId, float volume) {
+		FageAudioNode node = FageAudioNode.Find(nodeId);
+		node.volumn = Mathf.Clamp(volume, 0f, 1f);
+		float globalVolume = node.GetVolume();
+		FageAudioSourceControl[] controls = (_hashtable[node] as FageAudioPooler).GetAudioSourceControls();
 		foreach (FageAudioSourceControl control in controls) {
-			control.volume = v;
+			control.volume = globalVolume;
 		}
 	}
 }

@@ -21,12 +21,12 @@ public class TestPopupComponent : MonoBehaviour, IFagePopupComponent {
 
 	public	void OnClickPopup() {
 		FageUIParam param = new FageUIParam("ui/popuptest");
-		FageEventDispatcher.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
-		FageEventDispatcher.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
-		FageEventDispatcher.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
+		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
+		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
+		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
 	}
 
 	public	void OnClickClose() {
-		FageEventDispatcher.DispatchEvent(new FageEvent(FageEvent.UI_POPDOWN));
+		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPDOWN));
 	}
 }

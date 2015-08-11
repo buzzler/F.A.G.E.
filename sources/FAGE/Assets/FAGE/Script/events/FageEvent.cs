@@ -11,8 +11,6 @@
 	public	const string WEB_RESPONSE	= "webResponse";
 	public	const string FILE_REQUEST	= "fileRequest";
 	public	const string FILE_RESPONSE	= "fileResponse";
-	public	const string AUDIO_REQUEST	= "audioRequest";
-	public	const string AUDIO_RESPONSE	= "audioResponse";
 	public	const string UI_INDEPTH		= "uiIndepth";
 	public	const string UI_CHANGE		= "uiChange";
 	public	const string UI_OUTDEPTH	= "uiOutdepth";

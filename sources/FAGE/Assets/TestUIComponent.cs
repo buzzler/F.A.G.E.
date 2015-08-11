@@ -33,24 +33,24 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 	public	void OnClickPopup() {
 		FageUIParam param = new FageUIParam("ui/popuptest", "Hello", "World", "POPUP!");
 		FageEvent fevent = new FageEvent(FageEvent.UI_POPUP, param);
-		FageEventDispatcher.DispatchEvent(fevent);
+		FageUIManager.Instance.DispatchEvent(fevent);
 	}
 
 	public	void OnClickIndepth() {
 		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "POPUP!");
 		FageEvent fevent = new FageEvent(FageEvent.UI_INDEPTH, param);
-		FageEventDispatcher.DispatchEvent(fevent);
+		FageUIManager.Instance.DispatchEvent(fevent);
 	}
 
 	public	void OnClickOutdepth() {
 		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "BACK!");
 		FageEvent fevent = new FageEvent(FageEvent.UI_OUTDEPTH, param);
-		FageEventDispatcher.DispatchEvent(fevent);
+		FageUIManager.Instance.DispatchEvent(fevent);
 	}
 
 	public	void OnClickChange() {
 		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
 		FageEvent fevent = new FageEvent(FageEvent.UI_CHANGE, param);
-		FageEventDispatcher.DispatchEvent(fevent);
+		FageUIManager.Instance.DispatchEvent(fevent);
 	}
 }

@@ -2,11 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class FageUIManager : FageEventDispatcher {
+	private	static FageUIManager _instance;
+	public	static FageUIManager Instance { get { return _instance; } }
 	public	Transform canvas;
 	private	Stack _stack;
 	private	Queue _queue;
-
+	
 	void Awake() {
+		_instance = this;
 		_stack = new Stack ();
 		_queue = new Queue ();
 	}

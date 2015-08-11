@@ -37,7 +37,7 @@ public class ConnectionPing : FageState {
 		base.Excute (stateMachine);
 		if (Application.internetReachability == NetworkReachability.NotReachable) {
 			if (_online) {
-				FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
+				stateMachine.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
 			}
 			stateMachine.ReserveState ("ConnectionStart");
 			return;
@@ -61,12 +61,12 @@ public class ConnectionPing : FageState {
 
 			if (last != _online) {
 				if (_online) {
-					FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_ONLINE));
+					stateMachine.DispatchEvent (new FageEvent (FageEvent.SENSOR_ONLINE));
 				} else {
-					FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
+					stateMachine.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
 				}
 			} else {
-				FageEventDispatcher.DispatchEvent (new FageEvent (FageEvent.SENSOR_PING, _ping_time));
+				stateMachine.DispatchEvent (new FageEvent (FageEvent.SENSOR_PING, _ping_time));
 			}
 		}
 

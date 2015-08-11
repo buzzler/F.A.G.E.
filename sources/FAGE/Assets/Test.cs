@@ -19,31 +19,17 @@ public class Test : FageEventDispatcher {
 				control = null;
 			}
 
-			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "background", "clips/POL-lunar-love-short", true, true);
-			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
-			AddEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
-			DispatchEvent(fevent);
-		}
-		if (GUI.Button (new Rect (Screen.width/2,0,Screen.width/2, Screen.height/2), "REQUEST2")) {
-			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "effect", "clips/NFF-coin-03");
-			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
-			DispatchEvent(fevent);
-
-			FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
-			fevent = new FageEvent(FageEvent.UI_CHANGE, param);
-			DispatchEvent(fevent);
-			gameObject.SetActive(false);
-		}
-	}
-
-
-	private	void OnResponse(FageEvent fevent) {
-		RemoveEventListener(FageEvent.AUDIO_RESPONSE, OnResponse);
-		FageAudioResponse response = fevent.data as FageAudioResponse;
-		if (response.control!=null) {
-			control = response.control;
+			FageAudioManager.Instance.Play("background", "clips/POL-lunar-love-short", ref control, true);
 			control.onLoop += OnAudioLoop;
 			control.onStatus += OnAudioStatus;
+		}
+		if (GUI.Button (new Rect (Screen.width/2,0,Screen.width/2, Screen.height/2), "REQUEST2")) {
+			FageAudioManager.Instance.Play("effect", "clips/NFF-coin-03");
+
+			FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
+			FageEvent fevent = new FageEvent(FageEvent.UI_CHANGE, param);
+			FageUIManager.Instance.DispatchEvent(fevent);
+			gameObject.SetActive(false);
 		}
 	}
 

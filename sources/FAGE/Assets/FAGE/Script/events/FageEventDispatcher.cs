@@ -3,19 +3,14 @@ using System.Collections;
 
 [AddComponentMenu("Fage/Events/FageEventDispatcher")]
 public	class FageEventDispatcher : MonoBehaviour {
-	private		static event FageEventHandler dummy;
-	private		const	int			MAX_LOG		= 50;
-	private		static	object[]	log_stack	= new object[MAX_LOG];
-	private		static	int			log_index	= 0;
-	private		static	Hashtable	event_hash	= new Hashtable ();
-	
-	public	static void Log(object message) {
-		log_stack [log_index] = message;
-		log_index = (log_index + 1) % MAX_LOG;
-		Debug.Log (message);
+	private	static event FageEventHandler dummy;
+	private	Hashtable	event_hash	= new Hashtable ();
+
+	void Awake() {
+		event_hash	= new Hashtable ();
 	}
-	
-	public	static void AddEventListener(string type, FageEventHandler func) {
+
+	public	void AddEventListener(string type, FageEventHandler func) {
 		if (event_hash.ContainsKey (type)) {
 			FageEventHandler handler = event_hash [type] as FageEventHandler;
 			handler += func;
@@ -28,7 +23,7 @@ public	class FageEventDispatcher : MonoBehaviour {
 		}
 	}
 	
-	public	static void RemoveEventListener(string type, FageEventHandler func) {
+	public	void RemoveEventListener(string type, FageEventHandler func) {
 		if (event_hash.ContainsKey (type)) {
 			FageEventHandler handler = event_hash [type] as FageEventHandler;
 			handler -= func;
@@ -36,7 +31,7 @@ public	class FageEventDispatcher : MonoBehaviour {
 		}
 	}
 	
-	public	static void DispatchEvent(FageEvent fevent) {
+	public	void DispatchEvent(FageEvent fevent) {
 		if ((fevent != null) && event_hash.ContainsKey (fevent.type)) {
 			FageEventHandler handler = event_hash [fevent.type] as FageEventHandler;
 			if (handler!=null) {

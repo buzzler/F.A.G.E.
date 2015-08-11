@@ -2,11 +2,17 @@
 using System.IO;
 
 public class FageFileLoader : FageEventDispatcher {
+	private	static FageFileLoader _instance;
+	public	static FageFileLoader Instance { get { return _instance; } }
 	private	const int			_MAX_QUEUE = 100;
 	private	FageFileRequest[]	_requests;
 	private int					_index_push;
 	private int					_index_pop;
 	private	FageFileRequest		_current;
+
+	void Awake() {
+		_instance = this;
+	}
 
 	void OnEnable() {
 		AddEventListener (FageEvent.FILE_REQUEST, OnRequestEvent);

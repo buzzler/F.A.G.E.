@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class FageWebLoader : FageEventDispatcher {
+	private	static FageWebLoader _instance;
+	public	static FageWebLoader Instance { get { return _instance; } }
 	private	const int			_MAX_QUEUE = 100;
 	private	FageWebRequest[]	_requests;
 	private int					_index_push;
@@ -11,6 +13,7 @@ public class FageWebLoader : FageEventDispatcher {
 	private	bool				_excute;
 
 	void Awake() {
+		_instance	= this;
 		_requests	= new FageWebRequest[_MAX_QUEUE];
 		_index_push	= 0;
 		_index_pop	= 0;
