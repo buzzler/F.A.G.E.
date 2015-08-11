@@ -32,6 +32,7 @@ public class Test : FageEventDispatcher {
 			FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
 			fevent = new FageEvent(FageEvent.UI_CHANGE, param);
 			DispatchEvent(fevent);
+			gameObject.SetActive(false);
 		}
 	}
 

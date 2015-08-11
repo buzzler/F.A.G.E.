@@ -30,6 +30,12 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 		return gameObject;
 	}
 
+	public	void OnClickPopup() {
+		FageUIParam param = new FageUIParam("ui/popuptest", "Hello", "World", "POPUP!");
+		FageEvent fevent = new FageEvent(FageEvent.UI_POPUP, param);
+		FageEventDispatcher.DispatchEvent(fevent);
+	}
+
 	public	void OnClickIndepth() {
 		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "POPUP!");
 		FageEvent fevent = new FageEvent(FageEvent.UI_INDEPTH, param);

@@ -17,7 +17,7 @@ public class FageUIManager : FageEventDispatcher {
 		AddEventListener(FageEvent.UI_OUTDEPTH,	OnUIOutdepth);
 		AddEventListener(FageEvent.UI_FLUSH,	OnUIFlush);
 		AddEventListener(FageEvent.UI_POPUP,	OnPopup);
-		AddEventListener(FageEvent.UI_POPDOWN,	OnPopup);
+		AddEventListener(FageEvent.UI_POPDOWN,	OnPopdown);
 	}
 
 	void OnDisable() {
@@ -26,7 +26,7 @@ public class FageUIManager : FageEventDispatcher {
 		RemoveEventListener(FageEvent.UI_OUTDEPTH,	OnUIOutdepth);
 		RemoveEventListener(FageEvent.UI_FLUSH,		OnUIFlush);
 		RemoveEventListener(FageEvent.UI_POPUP,		OnPopup);
-		RemoveEventListener(FageEvent.UI_POPDOWN,	OnPopup);
+		RemoveEventListener(FageEvent.UI_POPDOWN,	OnPopdown);
 	}
 
 	private	void OnUIChange(FageEvent fevent) {
