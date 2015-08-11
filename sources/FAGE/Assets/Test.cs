@@ -28,6 +28,10 @@ public class Test : FageEventDispatcher {
 			FageAudioRequest request = new FageAudioRequest(name, FageAudioCommand.PLAY, "effect", "clips/NFF-coin-03");
 			FageEvent fevent = new FageEvent(FageEvent.AUDIO_REQUEST, request);
 			DispatchEvent(fevent);
+
+			FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
+			fevent = new FageEvent(FageEvent.UI_CHANGE, param);
+			DispatchEvent(fevent);
 		}
 	}
 
