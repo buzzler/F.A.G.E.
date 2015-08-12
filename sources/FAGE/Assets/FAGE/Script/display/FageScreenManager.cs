@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [AddComponentMenu("Fage/Display/FageScreenManager")]
 public class FageScreenManager : FageEventDispatcher {
@@ -20,16 +21,20 @@ public class FageScreenManager : FageEventDispatcher {
 	}
 
 	void Update () {
+		ArrayList list = new ArrayList ();
+
 		if (_lastOrientation != Input.deviceOrientation)
-			DispatchEvent (new FageScreenEvent (_lastOrientation, Input.deviceOrientation));
+			list.Add(new FageScreenEvent (_lastOrientation, Input.deviceOrientation));
 
 		if ((_lastWidth != Screen.width) || (_lastHeight != Screen.height))
-			DispatchEvent (new FageScreenEvent (_lastWidth, _lastHeight, Screen.width, Screen.height));
+			list.Add (new FageScreenEvent (_lastWidth, _lastHeight, Screen.width, Screen.height));
 
 		if (_lastDpi != Screen.dpi)
-			DispatchEvent (new FageScreenEvent (_lastDpi, Screen.dpi));
-
+			list.Add (new FageScreenEvent (_lastDpi, Screen.dpi));
 		DumpInfo ();
+		foreach (FageScreenEvent fsevent in list) {
+			DispatchEvent(fsevent);
+		}
 	}
 
 	private	void DumpInfo() {

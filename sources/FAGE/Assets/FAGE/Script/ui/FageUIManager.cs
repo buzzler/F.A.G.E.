@@ -32,6 +32,10 @@ public class FageUIManager : FageEventDispatcher {
 		RemoveEventListener(FageEvent.UI_POPDOWN,	OnPopdown);
 	}
 
+	public	void Change(FageUIInfo uiInfo, params object[] param) {
+
+	}
+
 	private	void OnUIChange(FageEvent fevent) {
 		if (_stack.Count != 0) {
 			FageUIMem before = _stack.Pop() as FageUIMem;
