@@ -83,7 +83,7 @@ public class FageUIManager : FageEventDispatcher {
 
 	private	void OnPopup(FageEvent fevent) {
 		FageUIParam param = fevent.data as FageUIParam;
-		FagePopupMem after = new FagePopupMem(param.resourcePath, param);
+		FageUIPopupMem after = new FageUIPopupMem(param.resourcePath, param);
 		_queue.Enqueue(after);
 
 		if (_queue.Count == 1) {
@@ -93,12 +93,12 @@ public class FageUIManager : FageEventDispatcher {
 
 	private	void OnPopdown(FageEvent fevent) {
 		if (_queue.Count > 0) {
-			FagePopupMem before = _queue.Dequeue () as FagePopupMem;
+			FageUIPopupMem before = _queue.Dequeue () as FageUIPopupMem;
 			before.Destroy ();
 		}
 
 		if (_queue.Count > 0) {
-			FagePopupMem after = _queue.Peek () as FagePopupMem;
+			FageUIPopupMem after = _queue.Peek () as FageUIPopupMem;
 			after.Instantiate(canvas);
 		}
 	}

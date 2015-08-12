@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public	class FageUIMem : FageCommonMem {
-	private	string						_resourcePath;
-	private	IFageUIComponent			_component;
-	private	Vector3						_position;
-	private	Quaternion					_rotation;
+	private	string				_resourcePath;
+	private	IFageUIComponent	_component;
+	private	Vector3				_position;
+	private	Quaternion			_rotation;
 	
 	public	string				resourcePath	{ get { return _resourcePath; } }
 	public	IFageUIComponent	component		{ get { return _component; } }

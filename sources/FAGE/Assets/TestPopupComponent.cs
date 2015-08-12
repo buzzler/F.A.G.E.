@@ -1,18 +1,18 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class TestPopupComponent : MonoBehaviour, IFagePopupComponent {
+public class TestPopupComponent : MonoBehaviour, IFageUIPopupComponent {
 	private static int i = 0;
 	public	Text textTitle;
 
-	public	void OnUIInstantiate(FagePopupMem mem, params object[] param) {
+	public	void OnUIInstantiate(FageUIPopupMem mem, params object[] param) {
 		i++;
 		mem.SetInt("id", i);
 		textTitle.text = i.ToString();
 	}
 
-	public	void OnUIDestroy(FagePopupMem mem) {
+	public	void OnUIDestroy(FageUIPopupMem mem) {
 	}
 
 	public	GameObject GetGameObject() {
