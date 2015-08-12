@@ -1,17 +1,20 @@
 ﻿using System.IO;
 
 public	class FageFileState {
+	private	int				_requestId;
 	private FileStream		_stream;
-	private	FageFileRequest	_request;
-	private	byte[]			_data;
+	private	string			_filePath;
+	private	byte[]			_fileData;
+
+	public	int				requestId	{ get { return _requestId; } }
+	public	FileStream		stream		{ get { return _stream; } }
+	public	string			filePath	{ get { return _filePath; } }
+	public	byte[]			fileData	{ get { return _fileData; } }
 	
-	public	FileStream		stream	{ get { return _stream; } }
-	public	FageFileRequest	request	{ get { return _request; } }
-	public	byte[]			data	{ get { return _data; } }
-	
-	public	FageFileState(FageFileRequest request, FileStream stream, byte[] data) {
+	public	FageFileState(int requestId, string filePath, FileStream stream, byte[] fileData) {
+		_requestId = requestId;
 		_stream = stream;
-		_request = request;
-		_data = data;
+		_filePath = filePath;
+		_fileData = fileData;
 	}
 }

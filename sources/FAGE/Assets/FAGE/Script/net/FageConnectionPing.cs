@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ConnectionPing : FageState {
+public class FageConnectionPing : FageState {
 	private	const string _ADDRESS	= "8.8.8.8";
 	private const float _TIMEOUT	= 10;
 	private	const float _ITERATE	= 20;
@@ -39,7 +39,7 @@ public class ConnectionPing : FageState {
 			if (_online) {
 				stateMachine.DispatchEvent (new FageEvent (FageEvent.SENSOR_OFFLINE));
 			}
-			stateMachine.ReserveState ("ConnectionStart");
+			stateMachine.ReserveState ("FageConnectionStart");
 			return;
 		}
 

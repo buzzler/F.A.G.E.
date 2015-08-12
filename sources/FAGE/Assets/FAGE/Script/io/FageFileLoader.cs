@@ -1,70 +1,45 @@
 ﻿using UnityEngine;
 using System.IO;
 
+[AddComponentMenu("Fage/IO/FageFileLoader")]
 public class FageFileLoader : FageEventDispatcher {
 	private	static FageFileLoader _instance;
+	private	static int _countId;
 	public	static FageFileLoader Instance { get { return _instance; } }
-	private	const int			_MAX_QUEUE = 100;
-	private	FageFileRequest[]	_requests;
-	private int					_index_push;
-	private int					_index_pop;
-	private	FageFileRequest		_current;
 
 	void Awake() {
 		_instance = this;
+		_countId = 0;
 	}
 
-	void OnEnable() {
-		AddEventListener (FageEvent.FILE_REQUEST, OnRequestEvent);
-	}
-	
-	void OnDisable() {
-		RemoveEventListener (FageEvent.FILE_REQUEST, new FageEventHandler (OnRequestEvent));
-	}
-
-	private	void OnRequestEvent(FageEvent fevent) {
-		FageFileRequest request = fevent.data as FageFileRequest;
-		switch (request.mode) {
-		case FageFileMode.LOAD_ASYNC:
-			Load (request);
-			break;
-		case FageFileMode.SAVE_ASYNC:
-			Save (request);
-			break;
+	public	int Load(string filePath) {
+		byte[] fileData;
+		using (FileStream stream = new FileStream (filePath, FileMode.OpenOrCreate)) {
+			fileData = new byte[stream.Length];
+			stream.BeginRead(fileData, 0, fileData.Length, new System.AsyncCallback(OnLoad), new FageFileState(++_countId, filePath, stream, fileData));
 		}
-	}
-
-	private	void Load(FageFileRequest request) {
-		byte[] data;
-		using (FileStream stream = new FileStream (request.filepath, FileMode.OpenOrCreate)) {
-			data = new byte[stream.Length];
-			stream.BeginRead(data, 0, data.Length, new System.AsyncCallback(OnLoad), new FageFileState(request, stream, data));
-		}
+		return _countId;
 	}
 
 	private void OnLoad(System.IAsyncResult result) {
-		FageFileState state		= result.AsyncState as FageFileState;
-		FileStream stream		= state.stream;
-		FageFileRequest request	= state.request;
-		byte[] data				= state.data;
+		FageFileState state	= result.AsyncState as FageFileState;
 
-		DispatchEvent (new FageEvent(FageEvent.FILE_RESPONSE, new FageFileResponse(request.sender, request.filepath, data)));
-		stream.Close ();
+		DispatchEvent (new FageFileEvent(FageEvent.COMPLETE, state.requestId, state.filePath, state.fileData));
+		state.stream.Close ();
 	}
 
-	private void Save(FageFileRequest request) {
-		using (FileStream stream = new FileStream (request.filepath, FileMode.OpenOrCreate)) {
-			stream.BeginWrite(request.data, 0, request.data.Length, new System.AsyncCallback(OnSave), new FageFileState(request, stream, request.data));
+	public	int Save(string filePath, byte[] fileData) {
+		using (FileStream stream = new FileStream (filePath, FileMode.OpenOrCreate)) {
+			stream.BeginWrite(fileData, 0, fileData.Length, new System.AsyncCallback(OnSave), new FageFileState(++_countId, filePath, stream, fileData));
 		}
+		return _countId;
 	}
 
 	private	void OnSave(System.IAsyncResult result) {
 		FageFileState state		= result.AsyncState as FageFileState;
-		FileStream stream		= state.stream;
-		FageFileRequest request	= state.request;
 
-		DispatchEvent (new FageEvent(FageEvent.FILE_RESPONSE, new FageFileResponse(request.sender, request.filepath)));
-		stream.Close ();
+		DispatchEvent (new FageFileEvent(FageEvent.COMPLETE, state.requestId, state.filePath));
+		state.stream.Close ();
 	}
 }
 

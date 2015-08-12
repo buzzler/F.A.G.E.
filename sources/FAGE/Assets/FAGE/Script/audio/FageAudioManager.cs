@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Fage/Audio/FageAudioManager")]
 public class FageAudioManager : FageEventDispatcher {
 	private	static FageAudioManager _instance;
 	public	static FageAudioManager Instance { get { return _instance; } }

@@ -7,10 +7,9 @@
 	public	const string SENSOR_ONLINE	= "sensorOnline";
 	public	const string SENSOR_OFFLINE	= "sensorOffline";
 	public	const string SENSOR_PING	= "sensorPing";
+	public	const string COMPLETE		= "complete";
 	public	const string WEB_REQUEST	= "webRequest";
 	public	const string WEB_RESPONSE	= "webResponse";
-	public	const string FILE_REQUEST	= "fileRequest";
-	public	const string FILE_RESPONSE	= "fileResponse";
 	public	const string UI_INDEPTH		= "uiIndepth";
 	public	const string UI_CHANGE		= "uiChange";
 	public	const string UI_OUTDEPTH	= "uiOutdepth";

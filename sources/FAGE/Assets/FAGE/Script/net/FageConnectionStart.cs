@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ConnectionStart : FageState {
+public class FageConnectionStart : FageState {
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
 	}
@@ -14,7 +14,7 @@ public class ConnectionStart : FageState {
 		switch (Application.internetReachability) {
 		case NetworkReachability.ReachableViaCarrierDataNetwork:
 		case NetworkReachability.ReachableViaLocalAreaNetwork:
-			stateMachine.ReserveState("ConnectionPing");
+			stateMachine.ReserveState("FageConnectionPing");
 			break;
 		}
 	}
