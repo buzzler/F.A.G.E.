@@ -17,6 +17,12 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 
 	}
 
+	public	void OnSwitchIn(FageUIMem mem) {
+	}
+	
+	public	void OnSwitchOut(FageUIMem mem) {
+	}
+
 	public	void OnUIPause(FageUIMem mem) {
 
 	}
@@ -31,26 +37,21 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 	}
 
 	public	void OnClickPopup() {
-		FageUIParam param = new FageUIParam("ui/popuptest", "Hello", "World", "POPUP!");
-		FageEvent fevent = new FageEvent(FageEvent.UI_POPUP, param);
-		FageUIManager.Instance.DispatchEvent(fevent);
+		FageUIInfo uiInfo = new FageUIInfo ("ui/popPortrait", "ui/popLandscape");
+		FageUIManager.Instance.Popup (uiInfo);
 	}
 
 	public	void OnClickIndepth() {
-		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "POPUP!");
-		FageEvent fevent = new FageEvent(FageEvent.UI_INDEPTH, param);
-		FageUIManager.Instance.DispatchEvent(fevent);
+		FageUIInfo uiInfo = new FageUIInfo ("ui/uiPortrait", "ui/uiLandscape");
+		FageUIManager.Instance.Push (uiInfo);
 	}
 
 	public	void OnClickOutdepth() {
-		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "BACK!");
-		FageEvent fevent = new FageEvent(FageEvent.UI_OUTDEPTH, param);
-		FageUIManager.Instance.DispatchEvent(fevent);
+		FageUIManager.Instance.Pop ();
 	}
 
 	public	void OnClickChange() {
-		FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
-		FageEvent fevent = new FageEvent(FageEvent.UI_CHANGE, param);
-		FageUIManager.Instance.DispatchEvent(fevent);
+		FageUIInfo uiInfo = new FageUIInfo ("ui/uiPortrait", "ui/uiLandscape");
+		FageUIManager.Instance.Change (uiInfo);
 	}
 }

@@ -3,29 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 
 public	class FageUIPopupMem : FageCommonMem {
-	private	string					_resourcePath;
-	private	FageUIParam				_param;
+	private	FageUIInfo				_uiInfo;
 	private	IFageUIPopupComponent	_component;
 	
-	public	string					resourcePath	{ get { return _resourcePath; } }
-	public	FageUIParam				param			{ get { return _param; } }
+	public	FageUIInfo				uiInfo			{ get { return _uiInfo; } }
 	public	IFageUIPopupComponent	component		{ get { return _component; } }
 	
-	public	FageUIPopupMem(string resourcePath, FageUIParam param) : base() {
-		_resourcePath	= resourcePath;
-		_param			= param;
-		_component		= null;
+	public	FageUIPopupMem(FageUIInfo uiInfo) : base() {
+		_uiInfo = uiInfo;
+		_component = null;
 	}
-	
-	public	void Instantiate(Transform canvas) {
-		GameObject cach = CachedResource.Load<GameObject>(_resourcePath);
-		_component = (GameObject.Instantiate (cach, param.position, param.rotation) as GameObject).GetComponent<IFageUIPopupComponent>();
+
+	public	void Instantiate(Transform canvas, params object[] param) {
+		GameObject cach = CachedResource.Load<GameObject> (_uiInfo.GetCurrentOrientedResourcePath ());
+		_component = (GameObject.Instantiate (cach, _uiInfo.position, _uiInfo.rotation) as GameObject).GetComponent<IFageUIPopupComponent>();
 		_component.GetGameObject().transform.SetParent(canvas, false);
-		_component.OnUIInstantiate (this, param.param);
+		_component.OnUIInstantiate (this, param);
+		FageScreenManager.Instance.AddEventListener(FageScreenEvent.ORIENTATION, OnScreenOrientation);
 	}
-	
+
 	public	void Destroy() {
+		FageScreenManager.Instance.RemoveEventListener(FageScreenEvent.ORIENTATION, OnScreenOrientation);
 		_component.OnUIDestroy (this);
 		GameObject.Destroy (_component.GetGameObject());
+	}
+
+	private	void OnScreenOrientation(FageEvent fevent) {
+		GameObject go = _component.GetGameObject();
+		Transform canvas = go.transform.parent;
+		_component.OnSwitchOut(this);
+		GameObject.Destroy (go);
+		
+		GameObject cach = CachedResource.Load<GameObject> (_uiInfo.GetCurrentOrientedResourcePath ());
+		_component = (GameObject.Instantiate (cach, _uiInfo.position, _uiInfo.rotation) as GameObject).GetComponent<IFageUIPopupComponent>();
+		_component.GetGameObject().transform.SetParent(canvas, false);
+		_component.OnSwitchIn (this);
 	}
 }

@@ -25,10 +25,7 @@ public class Test : FageEventDispatcher {
 		}
 		if (GUI.Button (new Rect (Screen.width/2,0,Screen.width/2, Screen.height/2), "REQUEST2")) {
 			FageAudioManager.Instance.Play("effect", "clips/NFF-coin-03");
-
-			FageUIParam param = new FageUIParam("ui/uitest", "Hello", "World", "CHANGE!");
-			FageEvent fevent = new FageEvent(FageEvent.UI_CHANGE, param);
-			FageUIManager.Instance.DispatchEvent(fevent);
+			FageUIManager.Instance.Change(new FageUIInfo("ui/uiPortrait", "ui/uiLandscape"));
 			gameObject.SetActive(false);
 		}
 	}

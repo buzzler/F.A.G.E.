@@ -15,18 +15,24 @@ public class TestPopupComponent : MonoBehaviour, IFageUIPopupComponent {
 	public	void OnUIDestroy(FageUIPopupMem mem) {
 	}
 
+	public	void OnSwitchIn(FageUIPopupMem mem) {
+	}
+
+	public	void OnSwitchOut(FageUIPopupMem mem) {
+	}
+
 	public	GameObject GetGameObject() {
 		return gameObject;
 	}
 
 	public	void OnClickPopup() {
-		FageUIParam param = new FageUIParam("ui/popuptest");
-		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
-		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
-		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPUP, param));
+		FageUIInfo uiInfo = new FageUIInfo ("ui/popPortrait", "ui/popLandscape");
+		FageUIManager.Instance.Popup (uiInfo);
+		FageUIManager.Instance.Popup (uiInfo);
+		FageUIManager.Instance.Popup (uiInfo);
 	}
 
 	public	void OnClickClose() {
-		FageUIManager.Instance.DispatchEvent(new FageEvent(FageEvent.UI_POPDOWN));
+		FageUIManager.Instance.Popdown ();
 	}
 }

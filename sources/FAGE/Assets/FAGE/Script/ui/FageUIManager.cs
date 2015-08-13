@@ -14,88 +14,58 @@ public class FageUIManager : FageEventDispatcher {
 		_queue = new Queue ();
 	}
 
-	void OnEnable() {
-		AddEventListener(FageEvent.UI_CHANGE,	OnUIChange);
-		AddEventListener(FageEvent.UI_INDEPTH,	OnUIIndepth);
-		AddEventListener(FageEvent.UI_OUTDEPTH,	OnUIOutdepth);
-		AddEventListener(FageEvent.UI_FLUSH,	OnUIFlush);
-		AddEventListener(FageEvent.UI_POPUP,	OnPopup);
-		AddEventListener(FageEvent.UI_POPDOWN,	OnPopdown);
-	}
-
-	void OnDisable() {
-		RemoveEventListener(FageEvent.UI_CHANGE,	OnUIChange);
-		RemoveEventListener(FageEvent.UI_INDEPTH,	OnUIIndepth);
-		RemoveEventListener(FageEvent.UI_OUTDEPTH,	OnUIOutdepth);
-		RemoveEventListener(FageEvent.UI_FLUSH,		OnUIFlush);
-		RemoveEventListener(FageEvent.UI_POPUP,		OnPopup);
-		RemoveEventListener(FageEvent.UI_POPDOWN,	OnPopdown);
-	}
-
 	public	void Change(FageUIInfo uiInfo, params object[] param) {
-
-	}
-
-	private	void OnUIChange(FageEvent fevent) {
-		if (_stack.Count != 0) {
-			FageUIMem before = _stack.Pop() as FageUIMem;
-			before.Destroy();
+		if (_stack.Count > 0) {
+			FageUIMem before = _stack.Pop () as FageUIMem;
+			before.Destroy ();
 		}
 
-		FageUIParam param = fevent.data as FageUIParam;
-		FageUIMem after = new FageUIMem(param.resourcePath);
-		_stack.Push(after);
-		after.Instantiate(canvas, param.position, param.rotation, param.param);
+		FageUIMem after = new FageUIMem (uiInfo);
+		_stack.Push (after);
+		after.Instantiate (canvas, param);
 	}
 
-	private	void OnUIIndepth(FageEvent fevent) {
-		if (_stack.Count != 0) {
+	public	void Push(FageUIInfo uiInfo, params object[] param) {
+		if (_stack.Count > 0) {
 			FageUIMem before = _stack.Peek() as FageUIMem;
 			before.Pause();
 		}
 
-		FageUIParam param = fevent.data as FageUIParam;
-		FageUIMem after = new FageUIMem(param.resourcePath);
-		_stack.Push(after);
-		after.Instantiate(canvas, param.position, param.rotation, param.param);
+		FageUIMem after = new FageUIMem (uiInfo);
+		_stack.Push (after);
+		after.Instantiate (canvas, param);
 	}
 
-	private	void OnUIOutdepth(FageEvent fevent) {
+	public	void Pop(params object[] param) {
 		if (_stack.Count > 0) {
 			FageUIMem before = _stack.Pop() as FageUIMem;
 			before.Destroy();
 		}
 
 		if (_stack.Count > 0) {
-			FageUIParam param = fevent.data as FageUIParam;
 			FageUIMem after = _stack.Peek() as FageUIMem;
-			after.Resume(canvas, param.param);
+			after.Resume(canvas, param);
 		}
 	}
 
-	private	void OnUIFlush(FageEvent fevent) {
-		while (_stack.Count > 0) {
-			FageUIMem before = _stack.Pop() as FageUIMem;
-			before.Destroy();
+	public	void Flush() {
+		if (_stack.Count > 1) {
+			FageUIMem now = _stack.Peek() as FageUIMem;
+			_stack.Clear();
+			_stack.Push(now);
 		}
-		
-		FageUIParam param = fevent.data as FageUIParam;
-		FageUIMem after = new FageUIMem(param.resourcePath);
-		_stack.Push(after);
-		after.Instantiate(canvas, param.position, param.rotation, param.param);
 	}
 
-	private	void OnPopup(FageEvent fevent) {
-		FageUIParam param = fevent.data as FageUIParam;
-		FageUIPopupMem after = new FageUIPopupMem(param.resourcePath, param);
+	public	void Popup(FageUIInfo uiInfo, params object[] param) {
+		FageUIPopupMem after = new FageUIPopupMem (uiInfo);
 		_queue.Enqueue(after);
 
 		if (_queue.Count == 1) {
-			after.Instantiate(canvas);
+			after.Instantiate(canvas, param);
 		}
 	}
 
-	private	void OnPopdown(FageEvent fevent) {
+	public	void Popdown(params object[] param) {
 		if (_queue.Count > 0) {
 			FageUIPopupMem before = _queue.Dequeue () as FageUIPopupMem;
 			before.Destroy ();
@@ -103,7 +73,7 @@ public class FageUIManager : FageEventDispatcher {
 
 		if (_queue.Count > 0) {
 			FageUIPopupMem after = _queue.Peek () as FageUIPopupMem;
-			after.Instantiate(canvas);
+			after.Instantiate(canvas, param);
 		}
 	}
 }

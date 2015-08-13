@@ -25,4 +25,17 @@ public class FageUIInfo {
 		_position = position;
 		_rotation = rotation;
 	}
+
+	public	string GetCurrentOrientedResourcePath() {
+		switch (FageScreenManager.Instance.orientation) {
+		case DeviceOrientation.Portrait:
+		case DeviceOrientation.PortraitUpsideDown:
+			return resourcePathPortrait;
+		case DeviceOrientation.LandscapeLeft:
+		case DeviceOrientation.LandscapeRight:
+			return resourcePathLandscape;
+		default:
+			return resourcePathPortrait;
+		}
+	}
 }
