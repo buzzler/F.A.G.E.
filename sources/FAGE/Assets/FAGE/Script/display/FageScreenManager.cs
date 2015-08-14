@@ -17,30 +17,39 @@ public class FageScreenManager : FageEventDispatcher {
 
 	void Awake() {
 		_instance = this;
-		DumpInfo ();
+		_lastOrientation = Input.deviceOrientation;
+		_lastWidth = Screen.width;
+		_lastHeight = Screen.height;
+		_lastDpi = Screen.dpi;
 	}
 
 	void Update () {
 		ArrayList list = new ArrayList ();
 
-		if (_lastOrientation != Input.deviceOrientation)
-			list.Add(new FageScreenEvent (_lastOrientation, Input.deviceOrientation));
-
-		if ((_lastWidth != Screen.width) || (_lastHeight != Screen.height))
+		DeviceOrientation orientation = Input.deviceOrientation;
+		if (_lastOrientation != orientation) {
+			switch (orientation) {
+			case DeviceOrientation.LandscapeLeft:
+			case DeviceOrientation.LandscapeRight:
+			case DeviceOrientation.Portrait:
+			case DeviceOrientation.PortraitUpsideDown:
+				list.Add (new FageScreenEvent (_lastOrientation, Input.deviceOrientation));
+				_lastOrientation = orientation;
+				break;
+			}
+		}
+		if ((_lastWidth != Screen.width) || (_lastHeight != Screen.height)) {
 			list.Add (new FageScreenEvent (_lastWidth, _lastHeight, Screen.width, Screen.height));
-
-		if (_lastDpi != Screen.dpi)
+			_lastWidth = Screen.width;
+			_lastHeight = Screen.height;
+		}
+		if (_lastDpi != Screen.dpi) {
 			list.Add (new FageScreenEvent (_lastDpi, Screen.dpi));
-		DumpInfo ();
+			_lastDpi = Screen.dpi;
+		}
+
 		foreach (FageScreenEvent fsevent in list) {
 			DispatchEvent(fsevent);
 		}
-	}
-
-	private	void DumpInfo() {
-		_lastOrientation = Input.deviceOrientation;
-		_lastWidth = Screen.width;
-		_lastHeight = Screen.height;
-		_lastDpi = Screen.dpi;
 	}
 }

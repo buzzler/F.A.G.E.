@@ -14,7 +14,6 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 	}
 
 	public	void OnUIDestroy(FageUIMem mem) {
-
 	}
 
 	public	void OnSwitchIn(FageUIMem mem) {
@@ -37,13 +36,13 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 	}
 
 	public	void OnClickPopup() {
-		FageUIInfo uiInfo = new FageUIInfo ("ui/popPortrait", "ui/popLandscape");
-		FageUIManager.Instance.Popup (uiInfo);
+		FageUISet uiSet = FageUIRoot.Instance.FindUISet ("testpop");
+		FageUIManager.Instance.Popup (uiSet);
 	}
 
 	public	void OnClickIndepth() {
-		FageUIInfo uiInfo = new FageUIInfo ("ui/uiPortrait", "ui/uiLandscape");
-		FageUIManager.Instance.Push (uiInfo);
+		FageUISet uiSet = FageUIRoot.Instance.FindUISet ("testui");
+		FageUIManager.Instance.Push (uiSet);
 	}
 
 	public	void OnClickOutdepth() {
@@ -51,7 +50,7 @@ public class TestUIComponent : MonoBehaviour, IFageUIComponent {
 	}
 
 	public	void OnClickChange() {
-		FageUIInfo uiInfo = new FageUIInfo ("ui/uiPortrait", "ui/uiLandscape");
-		FageUIManager.Instance.Change (uiInfo);
+		FageUISet uiSet = FageUIRoot.Instance.FindUISet ("testui");
+		FageUIManager.Instance.Change (uiSet);
 	}
 }

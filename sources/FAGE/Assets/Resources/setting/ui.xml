@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<UIRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UITransition id="LBounce" posX="-900" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="1" delay="0" easetype="BOUNCE_OUT" />
+  <UITransition id="RBack" posX="900" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.7" delay="0" easetype="BACK_IN" />
+  <UITransition id="UBounce" posX="1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="1" delay="0" easetype="BOUNCE_OUT" />
+  <UITransition id="DBack" posX="-1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.7" delay="0" easetype="BACK_IN" />
+  
+  <UIDetail id="portrait" resource="ui/uiPortrait" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="LBounce" onDestroy="RBack" onResume="UBounce" onPause="DBack" onSwitchIn="UBounce" onSwitchOut="DBack" />
+  <UIDetail id="landscape" resource="ui/uiLandscape" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="UBounce" onDestroy="DBack" onResume="LBounce" onPause="RBack" onSwitchIn="LBounce" onSwitchOut="RBack" />
+  <UIDetail id="portraitPop" resource="ui/popPortrait" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="LBounce" onDestroy="RBack" onResume="UBounce" onPause="DBack" onSwitchIn="UBounce" onSwitchOut="DBack" />
+  <UIDetail id="landscapePop" resource="ui/popLandscape" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="UBounce" onDestroy="DBack" onResume="LBounce" onPause="RBack" onSwitchIn="LBounce" onSwitchOut="RBack" />
+  <UISet id="testui" onPortrait="portrait" onLandscape="landscape" />
+  <UISet id="testpop" onPortrait="portraitPop" onLandscape="landscapePop" />
+</UIRoot>

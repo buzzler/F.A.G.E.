@@ -26,10 +26,10 @@ public class TestPopupComponent : MonoBehaviour, IFageUIPopupComponent {
 	}
 
 	public	void OnClickPopup() {
-		FageUIInfo uiInfo = new FageUIInfo ("ui/popPortrait", "ui/popLandscape");
-		FageUIManager.Instance.Popup (uiInfo);
-		FageUIManager.Instance.Popup (uiInfo);
-		FageUIManager.Instance.Popup (uiInfo);
+		FageUISet uiSet = FageUIRoot.Instance.FindUISet ("testpop");
+		FageUIManager.Instance.Popup (uiSet);
+		FageUIManager.Instance.Popup (uiSet);
+		FageUIManager.Instance.Popup (uiSet);
 	}
 
 	public	void OnClickClose() {

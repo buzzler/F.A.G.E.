@@ -5,6 +5,7 @@ public class FageUIManager : FageEventDispatcher {
 	private	static FageUIManager _instance;
 	public	static FageUIManager Instance { get { return _instance; } }
 	public	Transform canvas;
+	public	TextAsset setting;
 	private	Stack _stack;
 	private	Queue _queue;
 	
@@ -12,26 +13,28 @@ public class FageUIManager : FageEventDispatcher {
 		_instance = this;
 		_stack = new Stack ();
 		_queue = new Queue ();
+
+		FageUIRoot.LoadFromText (setting.text);
 	}
 
-	public	void Change(FageUIInfo uiInfo, params object[] param) {
+	public	void Change(FageUISet uiSet, params object[] param) {
 		if (_stack.Count > 0) {
 			FageUIMem before = _stack.Pop () as FageUIMem;
 			before.Destroy ();
 		}
 
-		FageUIMem after = new FageUIMem (uiInfo);
+		FageUIMem after = new FageUIMem (uiSet);
 		_stack.Push (after);
 		after.Instantiate (canvas, param);
 	}
 
-	public	void Push(FageUIInfo uiInfo, params object[] param) {
+	public	void Push(FageUISet uiSet, params object[] param) {
 		if (_stack.Count > 0) {
 			FageUIMem before = _stack.Peek() as FageUIMem;
 			before.Pause();
 		}
 
-		FageUIMem after = new FageUIMem (uiInfo);
+		FageUIMem after = new FageUIMem (uiSet);
 		_stack.Push (after);
 		after.Instantiate (canvas, param);
 	}
@@ -56,8 +59,8 @@ public class FageUIManager : FageEventDispatcher {
 		}
 	}
 
-	public	void Popup(FageUIInfo uiInfo, params object[] param) {
-		FageUIPopupMem after = new FageUIPopupMem (uiInfo);
+	public	void Popup(FageUISet uiSet, params object[] param) {
+		FageUIPopupMem after = new FageUIPopupMem (uiSet);
 		_queue.Enqueue(after);
 
 		if (_queue.Count == 1) {
