@@ -46,7 +46,7 @@ public	class FageUIMem : FageCommonMem {
 		_uiDetail = _uiSet.GetCurrentUIDetail ();
 		FageUITransition transition = _uiDetail.GetTransitionOnResume ();
 		GameObject cach = CachedResource.Load<GameObject> (_uiDetail.resource);
-		_component = (GameObject.Instantiate (cach, _uiDetail.GetPosition(), _uiDetail.GetRotation()) as GameObject).GetComponent<IFageUIComponent> ();
+		_component = (GameObject.Instantiate (cach, transition.GetPosition(), transition.GetRotation()) as GameObject).GetComponent<IFageUIComponent> ();
 		_component.GetGameObject ().transform.SetParent (canvas, false);
 		_component.OnUIResume (this, param);
 		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease);
