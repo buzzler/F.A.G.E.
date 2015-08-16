@@ -197,14 +197,14 @@ public	class FageUITransition {
 	[XmlAttribute("delay")]
 	public	float		delay;
 	[XmlAttribute("easetype")]
-	public	FageUIEase	ease;
+	public	LeanTweenType ease;
 
 	public	FageUITransition() {
 		posX = posY = posZ = 0f;
 		rotX = rotY = rotZ = 1f;
 		scaleX = scaleY = scaleZ = 1f;
 		time = delay = 0f;
-		ease = FageUIEase.LINEAR;
+		ease = LeanTweenType.linear;
 	}
 
 	public	Vector3 GetPosition() {
