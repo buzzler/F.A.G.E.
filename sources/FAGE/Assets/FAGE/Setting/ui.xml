@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<UIRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UIBundle id="bundle.global" source="http://file.unityscene.com/jellcraft/bundle/global.unity3d" dynamic="false" caching="true"/>
+  <UIBundle id="bundle.scene1" source="http://file.unityscene.com/jellcraft/bundle/scene1.unity3d" dynamic="true" caching="true"/>
+  <UIBundle id="bundle.scene2" source="http://file.unityscene.com/jellcraft/bundle/scene2.unity3d" dynamic="true" caching="true"/>
+  <UITransition id="trans.bounceL" posX="-1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="1" delay="0" easetype="easeOutBounce" />
+  <UITransition id="trans.backR" posX="1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.7" delay="0" easetype="easeInBack" />
+  <UITransition id="trans.bounceU" posX="0" posY="1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="1" delay="0" easetype="easeOutBounce" />
+  <UITransition id="trans.backD" posX="0" posY="-1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.7" delay="0" easetype="easeInBack" />
+  <UIDetail id="portrait" resource="ui/uiPortrait" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
+  <UIDetail id="landscape" resource="ui/uiLandscape" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="popupP" resource="ui/popPortrait" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
+  <UIDetail id="popupL" resource="ui/popLandscape" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UISet id="testui" onPortrait="portrait" onLandscape="landscape" />
+  <UISet id="testpop" onPortrait="popupP" onLandscape="popupL" />
+</UIRoot>

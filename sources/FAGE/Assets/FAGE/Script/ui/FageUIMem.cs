@@ -68,20 +68,26 @@ public	class FageUIMem : FageCommonMem {
 	}
 
 	private	void OnScreenOrientation(FageEvent fevent) {
-		FageUIDetail uiDetail = _uiSet.GetCurrentUIDetail ();
-		if (uiDetail == _uiDetail)
+		FageUIDetail bakDetail = _uiDetail;
+		_uiDetail = _uiSet.GetCurrentUIDetail ();
+		if (bakDetail == _uiDetail)
 			return;
-		else
-			_uiDetail = uiDetail;
 
+		FageUITransition transition = bakDetail.GetTransitionOnSwitchOut ();
+		LeanTween.moveLocal (_component.GetGameObject (), transition.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnScreenOrientationOut);
+	}
+
+	private	void OnScreenOrientationOut() {
 		GameObject go = _component.GetGameObject ();
 		Transform canvas = go.transform.parent;
 		_component.OnSwitchOut (this);
 		GameObject.Destroy (go);
-
+		
+		FageUITransition transition = _uiDetail.GetTransitionOnSwitchIn ();
 		GameObject cach = CachedResource.Load<GameObject> (_uiDetail.resource);
-		_component = (GameObject.Instantiate (cach, _uiDetail.GetPosition(), _uiDetail.GetRotation()) as GameObject).GetComponent<IFageUIComponent> ();
+		_component = (GameObject.Instantiate (cach, transition.GetPosition(), transition.GetRotation()) as GameObject).GetComponent<IFageUIComponent> ();
 		_component.GetGameObject ().transform.SetParent (canvas, false);
 		_component.OnSwitchIn (this);
+		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease);
 	}
 }

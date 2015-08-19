@@ -15,11 +15,14 @@ public	class FageUIRoot {
 	public	FageUIDetail[]		details;
 	[XmlElement("UISet")]
 	public	FageUISet[]			sets;
+	[XmlElement("UIBundle")]
+	public	FageUIBundle[]		bundles;
 
 	public	FageUIRoot() {
 		transitions = new FageUITransition[0];
 		details = new FageUIDetail[0];
 		sets = new FageUISet[0];
+		bundles = new FageUIBundle[0];;
 	}
 
 	public	FageUITransition FindUITransition(string id) {
@@ -33,46 +36,24 @@ public	class FageUIRoot {
 	public	FageUISet FindUISet(string id) {
 		return System.Array.Find<FageUISet> (sets, s => s.id == id);
 	}
-/*
-	public	void Add(FageUITransition transition) {
-		ArrayList list = new ArrayList (transitions);
-		list.Add (transition);
-		transitions = list.ToArray (typeof(FageUITransition)) as FageUITransition[];
+
+	public	FageUIBundle FindUIBundle(string id) {
+		return System.Array.Find<FageUIBundle> (bundles, b => b.id == id);
 	}
 
-	public	void Add(FageUIDetail mode) {
-		ArrayList list = new ArrayList (details);
-		list.Add (mode);
-		details = list.ToArray (typeof(FageUIDetail)) as FageUIDetail[];
-	}
-
-	public	void Add(FageUISet set) {
-		ArrayList list = new ArrayList (sets);
-		list.Add (set);
-		sets = list.ToArray (typeof(FageUISet)) as FageUISet[];
-	}
-*/	
-/*
-	public	void Save() {
-		string path = Utility.GetDataPath ("Setting/ui.xml");
-		var serializer = new XmlSerializer(typeof(FageUIRoot));
-		using(var stream = new FileStream(path, FileMode.Create)) {
-			serializer.Serialize(stream, this);
-		}
-	}
-	
-	public	static FageUIRoot Load() {
-		string path = Utility.GetDataPath ("Setting/ui.xml");
-		var serializer = new XmlSerializer(typeof(FageUIRoot));
-		using(var stream = new FileStream(path, FileMode.Open)) {
-			return serializer.Deserialize(stream) as FageUIRoot;
-		}
-	}
-*/
 	public	static void LoadFromText(string text) {
 		var serializer = new XmlSerializer(typeof(FageUIRoot));
 		_instance = serializer.Deserialize(new StringReader(text)) as FageUIRoot;
 	}
+}
+
+public	class FageUIBundle {
+	[XmlAttribute("id")]
+	public	string	id;
+	[XmlAttribute("source")]
+	public	string	source;
+	[XmlAttribute("dynamic")]
+	public	bool	isDynamic;
 }
 
 public	class FageUISet {
@@ -218,39 +199,4 @@ public	class FageUITransition {
 	public	Vector3 GetScale() {
 		return new Vector3 (scaleX, scaleY, scaleZ);
 	}
-}
-
-public	enum FageUIEase {
-	LINEAR,
-	SPRING,
-	QUAD_IN,
-	QUAD_OUT,
-	QUAD_INOUT,
-	CUBIC_IN,
-	CUBIC_OUT,
-	CUBIC_INOUT,
-	QUART_IN,
-	QUAT_OUT,
-	QUAT_INOUT,
-	QUINT_IN,
-	QUINT_OUT,
-	QUINT_INOUT,
-	SINE_IN,
-	SINE_OUT,
-	SINE_INOUT,
-	EXPO_IN,
-	EXPO_OUT,
-	EXPO_INOUT,
-	CIRC_IN,
-	CIRC_OUT,
-	CIRC_INOUT,
-	BOUNCE_IN,
-	BOUNCE_OUT,
-	BOUNCE_INOUT,
-	BACK_IN,
-	BACK_OUT,
-	BACK_INOUT,
-	ELASTIC_IN,
-	ELASTIC_OUT,
-	ELASTIC_INOUT
 }
