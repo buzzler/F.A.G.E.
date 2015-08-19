@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
@@ -9,6 +10,8 @@ public	class FageUIRoot {
 	private	static FageUIRoot _instance;
 	public	static FageUIRoot Instance { get { return _instance; } }
 
+	[XmlAttribute("url")]
+	public	string				url;
 	[XmlElement("UITransition")]
 	public	FageUITransition[]	transitions;
 	[XmlElement("UIDetail")]
@@ -18,42 +21,90 @@ public	class FageUIRoot {
 	[XmlElement("UIBundle")]
 	public	FageUIBundle[]		bundles;
 
+	private	Dictionary<string, FageUITransition>	_dicTransition;
+	private	Dictionary<string, FageUIDetail>		_dicDetail;
+	private	Dictionary<string, FageUISet>			_dicSet;
+	private	Dictionary<string, FageUIBundle> 		_dictionary;
+
 	public	FageUIRoot() {
 		transitions = new FageUITransition[0];
 		details = new FageUIDetail[0];
 		sets = new FageUISet[0];
-		bundles = new FageUIBundle[0];;
+		bundles = new FageUIBundle[0];
+		_dicTransition = new Dictionary<string, FageUITransition>();
+		_dicDetail = new Dictionary<string, FageUIDetail>();
+		_dicSet = new Dictionary<string, FageUISet>();
+		_dictionary = new Dictionary<string, FageUIBundle>();
+	}
+
+	private	void Hashing() {
+		_dicTransition.Clear();
+		_dicDetail.Clear();
+		_dicSet.Clear();
+		_dictionary.Clear();
+
+		foreach (FageUITransition trans in transitions) {
+			_dicTransition.Add(trans.id, trans);
+		}
+		foreach (FageUIDetail detail in details) {
+			_dicDetail.Add(detail.id, detail);
+		}
+		foreach (FageUISet set in sets) {
+			_dicSet.Add(set.id, set);
+		}
+		foreach(FageUIBundle bundle in bundles) {
+			_dictionary.Add(bundle.id, bundle);
+		}
 	}
 
 	public	FageUITransition FindUITransition(string id) {
-		return System.Array.Find<FageUITransition> (transitions, t => t.id == id);
+		if (_dicTransition.ContainsKey(id))
+			return _dicTransition[id];
+		else
+			return null;
 	}
 
 	public	FageUIDetail FindUIDetail(string id) {
-		return System.Array.Find<FageUIDetail> (details, d => d.id == id);
+		if (_dicDetail.ContainsKey(id))
+			return _dicDetail[id];
+		else
+			return null;
 	}
 
 	public	FageUISet FindUISet(string id) {
-		return System.Array.Find<FageUISet> (sets, s => s.id == id);
+		if (_dicSet.ContainsKey(id))
+			return _dicSet[id];
+		else
+			return null;
 	}
 
 	public	FageUIBundle FindUIBundle(string id) {
-		return System.Array.Find<FageUIBundle> (bundles, b => b.id == id);
+		if (_dictionary.ContainsKey(id)) {
+			return _dictionary[id];
+		} else {
+			return null;
+		}
 	}
 
 	public	static void LoadFromText(string text) {
 		var serializer = new XmlSerializer(typeof(FageUIRoot));
 		_instance = serializer.Deserialize(new StringReader(text)) as FageUIRoot;
+		_instance.Hashing();
 	}
 }
 
 public	class FageUIBundle {
 	[XmlAttribute("id")]
 	public	string	id;
-	[XmlAttribute("source")]
-	public	string	source;
+	[XmlAttribute("url")]
+	public	string	url;
+	[XmlAttribute("version")]
+	public	int		version;
 	[XmlAttribute("dynamic")]
 	public	bool	isDynamic;
+	[XmlAttribute("cached")]
+	public	bool	isCached;
+	public	bool	isStatic { get { return !isDynamic; } }
 }
 
 public	class FageUISet {
