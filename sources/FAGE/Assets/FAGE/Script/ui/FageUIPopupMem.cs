@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public	class FageUIPopupMem : FageCommonMem {
+public	class FageUIPopupMem : FageUICommonMem {
 	private	FageUISet				_uiSet;
 	private	IFageUIPopupComponent	_component;
 	private	FageUIDetail			_uiDetail;

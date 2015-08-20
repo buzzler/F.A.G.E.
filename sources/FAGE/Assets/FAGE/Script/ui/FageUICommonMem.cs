@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FageCommonMem {
+public class FageUICommonMem {
+	public	const string DESTROIED	= "detroied";
+	public	const string INTANTIATED= "instantiated";
+	public	const string PAUSED		= "paused";
+
 	private	Dictionary<string, int>		_dictionaryInt;
 	private	Dictionary<string, bool>	_dictionaryBool;
 	private	Dictionary<string, float>	_dictionaryFloat;
@@ -11,8 +15,10 @@ public class FageCommonMem {
 	private	Dictionary<string, short>	_dictionaryShort;
 	private	Dictionary<string, uint>	_dictionaryUint;
 	private	Hashtable					_hashtable;
+	private	string						_state;
+	public	string						state { get { return _state; } }
 
-	public	FageCommonMem() {
+	public	FageUICommonMem() {
 		_dictionaryInt		= new Dictionary<string, int>();
 		_dictionaryBool		= new Dictionary<string, bool>();
 		_dictionaryFloat	= new Dictionary<string, float>();
@@ -21,6 +27,8 @@ public class FageCommonMem {
 		_dictionaryShort	= new Dictionary<string, short>();
 		_dictionaryUint		= new Dictionary<string, uint>();
 		_hashtable			= new Hashtable();
+
+		SetState (FageUICommonMem.DESTROIED);
 	}
 
 	public	void SetInt(string key, int value) {
@@ -173,5 +181,9 @@ public class FageCommonMem {
 			return true;
 		}
 		return false;
+	}
+
+	public	void SetState(string state) {
+		_state = state;
 	}
 }
