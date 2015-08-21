@@ -36,6 +36,30 @@ public class FageUIManager : FageStateMachine {
 	}
 
 	public	void Change(FageUISet uiSet, params object[] param) {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.CHANGE, uiSet, param));
+	}
+
+	public	void Push(FageUISet uiSet, params object[] param) {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.PUSH, uiSet, param));
+	}
+
+	public	void Pop(params object[] param) {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.POP, param));
+	}
+
+	public	void Flush() {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.FLUSH));
+	}
+
+	public	void Popup(FageUISet uiSet, params object[] param) {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.POPUP, uiSet, param));
+	}
+
+	public	void Popdown(params object[] param) {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.POPDOWN, param));
+	}
+/*
+	public	void Change(FageUISet uiSet, params object[] param) {
 		FageUIMem before = null;
 		if (_stackUI.Count > 0) {
 			before = _stackUI.Pop () as FageUIMem;
@@ -173,4 +197,5 @@ public class FageUIManager : FageStateMachine {
 		}
 		_delayedParam = null;
 	}
+*/
 }

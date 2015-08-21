@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/jellycraft/bundle/version.txt">
+  <AssetNode id="bundle.global" version="1" url="http://file.unityscene.com/jellcraft/bundle/global.unity3d" dynamic="false"/>
+  <AssetNode id="bundle.scene1" version="1" url="http://file.unityscene.com/jellcraft/bundle/scene1.unity3d" dynamic="true"/>
+  <AssetNode id="bundle.scene2" version="1" url="http://file.unityscene.com/jellcraft/bundle/scene2.unity3d" dynamic="true"/>
+</AssetRoot>

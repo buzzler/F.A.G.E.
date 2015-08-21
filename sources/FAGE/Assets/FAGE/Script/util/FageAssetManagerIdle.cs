@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.IO;
 
-public class Utility {
+public class FageAssetManagerIdle : FageState {
 }
