@@ -6,18 +6,22 @@ public class FageUIManagerTransIn : FageState {
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
+		Debug.Log(this);
 		FageUIManager manager = stateMachine as FageUIManager;
 		Queue queue = manager.GetRequests ();
 		if (queue.Count > 0) {
 			FageUIRequest request = queue.Peek () as FageUIRequest;
 			switch (request.command) {
+			case FageUIRequest.POP:
+				ExcutePop(manager, request);
+				break;
 			case FageUIRequest.CHANGE:
 			case FageUIRequest.PUSH:
-			case FageUIRequest.POP:
-				ExcuteUI (manager, request);
+				ExcutePush (manager, request);
 				break;
+			case FageUIRequest.POPUP:
 			case FageUIRequest.POPDOWN:
-				ExcuteUIPopdown (manager, request);
+				ExcutePopdown (manager, request);
 				break;
 			default:
 				throw new UnityException ("unkown command");
@@ -27,7 +31,7 @@ public class FageUIManagerTransIn : FageState {
 		}
 	}
 
-	private	void ExcuteUI(FageUIManager manager, FageUIRequest request) {
+	private	void ExcutePush(FageUIManager manager, FageUIRequest request) {
 		Stack stack = manager.GetStack ();
 		if (stack.Count > 0) {
 			FageUIMem current = stack.Peek () as FageUIMem;
@@ -35,12 +39,25 @@ public class FageUIManagerTransIn : FageState {
 			current.Instantiate (manager.canvas, request.param);
 		} else {
 			manager.GetRequests ().Dequeue ();
-			manager.ReserveState ("FageUIIdle");
+			manager.ReserveState ("FageUIManagerIdle");
 			return;
 		}
 	}
 
-	private	void ExcuteUIPopdown(FageUIManager manager, FageUIRequest request) {
+	private	void ExcutePop(FageUIManager manager, FageUIRequest request) {
+		Stack stack = manager.GetStack ();
+		if (stack.Count > 0) {
+			FageUIMem current = stack.Peek () as FageUIMem;
+			this.current = current;
+			current.Resume(manager.canvas, request.param);
+		} else {
+			manager.GetRequests ().Dequeue ();
+			manager.ReserveState ("FageUIManagerIdle");
+			return;
+		}
+	}
+
+	private	void ExcutePopdown(FageUIManager manager, FageUIRequest request) {
 		Queue queue = manager.GetQueue ();
 		if (queue.Count > 0) {
 			FageUIPopupMem current = queue.Peek () as FageUIPopupMem;
@@ -48,7 +65,7 @@ public class FageUIManagerTransIn : FageState {
 			current.Instantiate (manager.canvas, request.param);
 		} else {
 			manager.GetRequests ().Dequeue ();
-			manager.ReserveState ("FageUIIdle");
+			manager.ReserveState ("FageUIManagerIdle");
 			return;
 		}
 	}
@@ -58,7 +75,7 @@ public class FageUIManagerTransIn : FageState {
 		FageUIManager manager = stateMachine as FageUIManager;
 		if (current.state == FageUICommonMem.INTANTIATED) {
 			manager.GetRequests ().Dequeue ();
-			manager.ReserveState ("FageUIIdle");
+			manager.ReserveState ("FageUIManagerIdle");
 		}
 	}
 	

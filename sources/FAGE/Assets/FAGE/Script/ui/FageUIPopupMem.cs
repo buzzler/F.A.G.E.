@@ -17,22 +17,24 @@ public	class FageUIPopupMem : FageUICommonMem {
 		_uiDetail = null;
 	}
 
-	public	float Instantiate(Transform canvas, params object[] param) {
+	public	void Instantiate(Transform canvas, params object[] param) {
 		_uiDetail = _uiSet.GetCurrentUIDetail ();
 		FageUITransition transition = _uiDetail.GetTransitionOnInstantiate ();
 		GameObject cach = CachedResource.Load<GameObject> (_uiDetail.resource);
 		_component = (GameObject.Instantiate (cach, transition.GetPosition (), transition.GetRotation ()) as GameObject).GetComponent<IFageUIPopupComponent> ();
 		_component.GetGameObject ().transform.SetParent (canvas, false);
 		_component.OnUIInstantiate (this, param);
-		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease);
-		FageScreenManager.Instance.AddEventListener (FageScreenEvent.ORIENTATION, OnScreenOrientation);
-		return transition.time + transition.delay;
+		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete(OnInstantiateComplete);
 	}
 
-	public	float Destroy() {
+	private	void OnInstantiateComplete() {
+		FageScreenManager.Instance.AddEventListener (FageScreenEvent.ORIENTATION, OnScreenOrientation);
+		SetState (FageUICommonMem.INTANTIATED);
+	}
+
+	public	void Destroy() {
 		FageUITransition transition = _uiDetail.GetTransitionOnDestroy ();
 		LeanTween.moveLocal (_component.GetGameObject (), transition.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnDestroyComplete);
-		return transition.time + transition.delay;
 	}
 
 	private	void OnDestroyComplete() {
@@ -40,6 +42,7 @@ public	class FageUIPopupMem : FageUICommonMem {
 		_component.OnUIDestroy (this);
 		_uiDetail = null;
 		GameObject.Destroy (_component.GetGameObject());
+		SetState (FageUICommonMem.DESTROIED);
 	}
 
 	private	void OnScreenOrientation(FageEvent fevent) {

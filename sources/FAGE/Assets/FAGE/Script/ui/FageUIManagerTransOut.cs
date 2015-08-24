@@ -6,6 +6,7 @@ public class FageUIManagerTransOut : FageState {
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
+		Debug.Log(this);
 		FageUIManager manager = stateMachine as FageUIManager;
 		Queue queue = manager.GetRequests ();
 		if (queue.Count > 0) {
@@ -14,10 +15,10 @@ public class FageUIManagerTransOut : FageState {
 			case FageUIRequest.CHANGE:
 			case FageUIRequest.POP:
 			case FageUIRequest.PUSH:
-				ExcuteUI (manager, request);
+				ExcutePush (manager, request);
 				break;
 			case FageUIRequest.POPDOWN:
-				ExcuteUIPopdown (manager, request);
+				ExcutePopdown (manager, request);
 				break;
 			default:
 				throw new UnityException ("unkown command");
@@ -27,7 +28,7 @@ public class FageUIManagerTransOut : FageState {
 		}
 	}
 
-	private	void ExcuteUI(FageUIManager manager, FageUIRequest request) {
+	private	void ExcutePush(FageUIManager manager, FageUIRequest request) {
 		Stack stack = manager.GetStack ();
 		if (stack.Count > 0) {
 			FageUIMem current = stack.Peek () as FageUIMem;
@@ -38,7 +39,7 @@ public class FageUIManagerTransOut : FageState {
 		}
 	}
 
-	private	void ExcuteUIPopdown(FageUIManager manager, FageUIRequest request) {
+	private	void ExcutePopdown(FageUIManager manager, FageUIRequest request) {
 		Queue queue = manager.GetQueue ();
 		if (queue.Count > 0) {
 			FageUIPopupMem current = queue.Peek () as FageUIPopupMem;

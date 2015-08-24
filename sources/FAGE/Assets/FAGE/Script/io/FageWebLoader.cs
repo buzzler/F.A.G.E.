@@ -38,10 +38,14 @@ public class FageWebLoader : FageEventDispatcher {
 			}
 		} else if ((_queue.Count > 0) && _excute) {
 			FageWebState current = _queue.Peek() as FageWebState;
-			if (current.wwwForm != null) {
-				_www = new WWW (current.url, current.wwwForm);
+			if (current.version < 0) {
+				if (current.wwwForm != null) {
+					_www = new WWW (current.url, current.wwwForm);
+				} else {
+					_www = new WWW (current.url);
+				}
 			} else {
-				_www = new WWW (current.url);
+				_www = WWW.LoadFromCacheOrDownload(current.url, current.version);
 			}
 		}
 	}
@@ -58,7 +62,12 @@ public class FageWebLoader : FageEventDispatcher {
 	}
 
 	public	int Request(string url, WWWForm wwwForm = null) {
-		_queue.Enqueue (new FageWebState(++_countId, url, wwwForm));
+		_queue.Enqueue (new FageWebState(++_countId, url, -1, wwwForm));
+		return _countId;
+	}
+
+	public	int Request(string url, int version) {
+		_queue.Enqueue (new FageWebState(++_countId, url, version));
 		return _countId;
 	}
 }

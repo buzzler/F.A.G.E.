@@ -4,6 +4,7 @@ using System.Collections;
 public class FageUIManagerIdle : FageState {
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
+		Debug.Log(this);
 	}
 
 	public override void Excute (FageStateMachine stateMachine) {
@@ -16,16 +17,16 @@ public class FageUIManagerIdle : FageState {
 			case FageUIRequest.CHANGE:
 			case FageUIRequest.POP:
 			case FageUIRequest.PUSH:
-				ExcuteUI(manager, request);
+				ExcutePush(manager, request);
 				break;
 			case FageUIRequest.FLUSH:
 				ExcuteFlush(manager, request);
 				break;
 			case FageUIRequest.POPUP:
-				ExcuteUIPopup(manager, request);
+				ExcutePopup(manager, request);
 				break;
 			case FageUIRequest.POPDOWN:
-				ExcuteUIPopdown(manager, request);
+				ExcutePopdown(manager, request);
 				break;
 			default:
 				throw new UnityException("unknown commnad");
@@ -33,7 +34,7 @@ public class FageUIManagerIdle : FageState {
 		}
 	}
 
-	private	void ExcuteUI(FageUIManager manager, FageUIRequest request) {
+	private	void ExcutePush(FageUIManager manager, FageUIRequest request) {
 		Stack stack = manager.GetStack ();
 		if (stack.Count > 0) {
 			manager.ReserveState("FageUIManagerTransOut");
@@ -42,17 +43,18 @@ public class FageUIManagerIdle : FageState {
 		}
 	}
 
-	private void ExcuteUIPopup(FageUIManager manager, FageUIRequest request) {
+	private void ExcutePopup(FageUIManager manager, FageUIRequest request) {
 		Queue queue = manager.GetQueue ();
-		if (queue.Count == 0) {
+		FageUIPopupMem mem = new FageUIPopupMem (request.uiSet);
+		queue.Enqueue(mem);
+		if (queue.Count == 1) {
 			manager.ReserveState("FageUIManagerSwitch");
 		} else {
-			FageUIPopupMem mem = new FageUIPopupMem (request.uiSet);
-			queue.Enqueue(mem);
+			manager.GetRequests().Dequeue();
 		}
 	}
 
-	private	void ExcuteUIPopdown(FageUIManager manager, FageUIRequest request) {
+	private	void ExcutePopdown(FageUIManager manager, FageUIRequest request) {
 		Queue queue = manager.GetQueue ();
 		if (queue.Count > 0) {
 			manager.ReserveState ("FageUIManagerTransOut");
