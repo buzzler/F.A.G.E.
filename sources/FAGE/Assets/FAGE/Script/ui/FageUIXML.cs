@@ -96,6 +96,16 @@ public	class FageUISet {
 			return FageUIRoot.Instance.FindUIDetail(onPortrait);
 		}
 	}
+
+	public	List<string> GetResources() {
+		List<string> result = new List<string>();
+		FageUIRoot root = FageUIRoot.Instance;
+		FageUIDetail uiDetail = root.FindUIDetail(onPortrait);
+		if ((uiDetail!=null) && (!result.Contains(uiDetail.resource))) {
+			result.Add(uiDetail.resource);
+		}
+		return result;
+	}
 }
 
 public	class FageUIDetail {

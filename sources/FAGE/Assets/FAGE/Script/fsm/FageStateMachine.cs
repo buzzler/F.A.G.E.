@@ -37,7 +37,7 @@ public	class FageStateMachine : FageEventDispatcher {
 		string temp = (_current != null) ? _current.id : null;
 		Type stateType = Type.GetType (id, false, true);
 		if (stateType == null) {
-			throw new UnityException ();
+			throw new UnityException ("unknown state : " + id);
 		}
 		ConstructorInfo stateConstructor = stateType.GetConstructor (Type.EmptyTypes);
 		object stateObject = stateConstructor.Invoke (new object[]{});
@@ -57,8 +57,9 @@ public	class FageStateMachine : FageEventDispatcher {
 			_current.Excute (this);
 		}
 		if (!String.IsNullOrEmpty (reserve)) {
-			SetState (reserve);
+			string r = reserve;
 			reserve = null;
+			SetState (r);
 		}
 	}
 }
