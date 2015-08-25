@@ -4,7 +4,6 @@ using System.Collections;
 public class FageUIManagerIdle : FageState {
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
-		Debug.Log(this);
 	}
 
 	public override void Excute (FageStateMachine stateMachine) {

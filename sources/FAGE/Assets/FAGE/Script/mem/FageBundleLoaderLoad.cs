@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class FageBundleLoaderLoad : FageState {
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
-		Debug.Log(this);
 		List<string> resources = new List<string>();
 		List<string> loadBundles = new List<string>();
 		List<string> unloadBundles = new List<string>();

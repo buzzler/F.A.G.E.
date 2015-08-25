@@ -23,6 +23,7 @@ public class FageBundleLoaderCheck : FageState {
 			FageBundleRoot.LoadFromText(str);
 			Utility.SetPrefString(_KEY, str);
 			loader.ReserveState("FageBundleLoaderDownload");
+			Debug.Log(str);
 		} else if (Utility.HasKey(_KEY)) {
 			FageBundleRoot.LoadFromText(Utility.GetPrefString(_KEY));
 			loader.ReserveState("FageBundleLoaderDownload");

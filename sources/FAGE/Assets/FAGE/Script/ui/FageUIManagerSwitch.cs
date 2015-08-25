@@ -2,13 +2,36 @@
 using System.Collections;
 
 public class FageUIManagerSwitch : FageState {
-	private	bool _excuted;
-
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
-		Debug.Log(this);
-		_excuted = false;
 		FageBundleLoader.Instance.AddEventListener(FageEvent.COMPLETE, OnLoadBundleComplete);
+
+		FageUIManager manager = stateMachine as FageUIManager;
+		Queue queue = manager.GetRequests ();
+		if (queue.Count > 0) {
+			FageUIRequest request = queue.Peek () as FageUIRequest;
+			switch (request.command) {
+			case FageUIRequest.CHANGE:
+				ExcuteChange(manager, request);
+				break;
+			case FageUIRequest.PUSH:
+				ExcutePush (manager, request);
+				break;
+			case FageUIRequest.POP:
+				ExcutePop(manager, request);
+				break;
+			case FageUIRequest.POPUP:
+				ExcutePopup(manager, request);
+				break;
+			case FageUIRequest.POPDOWN:
+				ExcutePopdown (manager, request);
+				break;
+			default:
+				throw new UnityException ("unkown command");
+			}
+		} else {
+			throw new UnityException ("request lost");
+		}
 	}
 	
 	private	void ExcutePush (FageUIManager manager, FageUIRequest request) {
@@ -74,35 +97,6 @@ public class FageUIManagerSwitch : FageState {
 	
 	public override void Excute (FageStateMachine stateMachine) {
 		base.Excute (stateMachine);
-			if (!_excuted) {
-			FageUIManager manager = stateMachine as FageUIManager;
-			Queue queue = manager.GetRequests ();
-			if (queue.Count > 0) {
-				FageUIRequest request = queue.Peek () as FageUIRequest;
-				switch (request.command) {
-				case FageUIRequest.CHANGE:
-					ExcuteChange(manager, request);
-					break;
-				case FageUIRequest.PUSH:
-					ExcutePush (manager, request);
-					break;
-				case FageUIRequest.POP:
-					ExcutePop(manager, request);
-					break;
-				case FageUIRequest.POPUP:
-					ExcutePopup(manager, request);
-					break;
-				case FageUIRequest.POPDOWN:
-					ExcutePopdown (manager, request);
-					break;
-				default:
-					throw new UnityException ("unkown command");
-				}
-			} else {
-				throw new UnityException ("request lost");
-			}
-			_excuted = true;
-		}
 	}
 
 	private	void OnLoadBundleComplete(FageEvent fevent) {

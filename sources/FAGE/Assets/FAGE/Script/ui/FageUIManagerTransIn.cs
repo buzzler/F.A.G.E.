@@ -6,7 +6,6 @@ public class FageUIManagerTransIn : FageState {
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
-		Debug.Log(this);
 		FageUIManager manager = stateMachine as FageUIManager;
 		Queue queue = manager.GetRequests ();
 		if (queue.Count > 0) {
