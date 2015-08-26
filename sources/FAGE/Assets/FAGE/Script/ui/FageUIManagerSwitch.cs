@@ -45,7 +45,7 @@ public class FageUIManagerSwitch : FageState {
 
 	private	void ExcuteChange (FageUIManager manager, FageUIRequest request) {
 		Stack stack = manager.GetStack ();
-		if (stack.Count > 1) {
+		if (stack.Count > 0) {
 			stack.Pop();
 		}
 
@@ -67,14 +67,18 @@ public class FageUIManagerSwitch : FageState {
 			manager.ReserveState ("FageUIManagerIdle");
 			return;
 		}
-		FageUIMem current = stack.Peek () as FageUIMem;
+
 		// load bundle
 		FageBundleLoader.Instance.ReserveUpdate();
 	}
 
 	private	void ExcutePopup (FageUIManager manager, FageUIRequest request) {
 		Queue queue = manager.GetQueue ();
-		FageUIPopupMem current = queue.Peek() as FageUIPopupMem;
+		if (queue.Count == 0) {
+			manager.GetRequests ().Dequeue ();
+			manager.ReserveState ("FageUIManagerIdle");
+			return;
+		}
 		// load bundle
 		FageBundleLoader.Instance.ReserveUpdate();
 	}
@@ -90,7 +94,6 @@ public class FageUIManagerSwitch : FageState {
 			manager.ReserveState ("FageUIManagerIdle");
 			return;
 		}
-		FageUIPopupMem current = queue.Peek() as FageUIPopupMem;
 		// load bundle
 		FageBundleLoader.Instance.ReserveUpdate();
 	}

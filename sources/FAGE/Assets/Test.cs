@@ -25,4 +25,16 @@ public class Test : FageEventDispatcher {
 			gameObject.SetActive(false);
 		}
 	}
+
+	public	void OnClick1() {
+		FageUIManager.Instance.Change (FageUIRoot.Instance.FindUISet("test1"));
+	}
+
+	public	void OnClick2() {
+		FageUIManager.Instance.Change (FageUIRoot.Instance.FindUISet("test2"));
+	}
+
+	public	void OnClick3() {
+		FageUIManager.Instance.Change (FageUIRoot.Instance.FindUISet("test3"));
+	}
 }

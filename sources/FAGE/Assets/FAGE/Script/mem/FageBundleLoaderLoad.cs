@@ -39,9 +39,17 @@ public class FageBundleLoaderLoad : FageState {
 
 		// for LOAD
 //		loadBundles;
+		Debug.Log ("for LOAD");
+		foreach (string s in loadBundles) {
+			Debug.Log(s);
+		}
 
 		// for UNLOAD
 //		unloadBundles;
+		Debug.Log ("for UNLOAD");
+		foreach (string s in unloadBundles) {
+			Debug.Log(s);
+		}
 	}
 
 	public override void Excute (FageStateMachine stateMachine) {
