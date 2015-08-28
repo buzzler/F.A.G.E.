@@ -156,33 +156,78 @@ public	class FageUIDetail {
 	public	Vector3 GetScale() {
 		return new Vector3 (scaleX, scaleY, scaleZ);
 	}
-	
+
+	private	byte WhichTransitionNeed(FageUITransition t) {
+		byte result = FageUITransition.NONE;
+		if (t!=null) {
+			if (t.posX!=posX || t.posY!=posY || t.posZ!=posZ) {
+				result |= FageUITransition.POSITION;
+			}
+			if (t.rotX!=rotX || t.rotY!=rotY || t.rotZ!=rotZ) {
+				result |= FageUITransition.ROTATION;
+			}
+			if (t.scaleX!=scaleX || t.scaleY!=scaleY || t.scaleZ!=scaleZ) {
+				result |= FageUITransition.SCALE;
+			}
+		}
+		return result;
+	}
+
 	public	FageUITransition GetTransitionOnInstantiate() {
 		return FageUIRoot.Instance.FindUITransition (onInstantiate);
+	}
+
+	public	byte WhichTransitionOnInstantiate() {
+		return WhichTransitionNeed(GetTransitionOnInstantiate());
 	}
 
 	public	FageUITransition GetTransitionOnDestroy() {
 		return FageUIRoot.Instance.FindUITransition (onDestroy);
 	}
 
+	public	byte WhichTransitionOnDestroy() {
+		return WhichTransitionNeed(GetTransitionOnDestroy());
+	}
+
 	public	FageUITransition GetTransitionOnPause() {
 		return FageUIRoot.Instance.FindUITransition (onPause);
+	}
+
+	public	byte WhichTransitionOnPause() {
+		return WhichTransitionNeed(GetTransitionOnPause());
 	}
 
 	public	FageUITransition GetTransitionOnResume() {
 		return FageUIRoot.Instance.FindUITransition (onResume);
 	}
 
+	public	byte WhichTransitionOnResume() {
+		return WhichTransitionNeed(GetTransitionOnResume());
+	}
+
 	public	FageUITransition GetTransitionOnSwitchIn() {
 		return FageUIRoot.Instance.FindUITransition (onSwitchIn);
+	}
+
+	public	byte WhichTransitionOnSwitchIn() {
+		return WhichTransitionNeed(GetTransitionOnSwitchIn());
 	}
 
 	public	FageUITransition GetTransitionOnSwitchOut() {
 		return FageUIRoot.Instance.FindUITransition (onSwitchOut);
 	}
+
+	public	byte WhichTransitionOnSwitchOut() {
+		return WhichTransitionNeed(GetTransitionOnSwitchOut());
+	}
 }
 
 public	class FageUITransition {
+	public	const byte NONE		= 0x00;
+	public	const byte POSITION = 0x01;
+	public	const byte ROTATION = 0x02;
+	public	const byte SCALE	= 0x04;
+
 	[XmlAttribute("id")]
 	public	string		id;
 	[XmlAttribute("posX")]

@@ -52,4 +52,13 @@ public class FageBundleLoader : FageStateMachine {
 	public	Dictionary<string, AssetBundle> GetDownloadedBundles() {
 		return _downloadedBundle;
 	}
+
+	public	object Load(FageUIDetail uiDetail) {
+		if (_loadedAsset.ContainsKey(uiDetail.id))
+			return _loadedAsset[id];
+		else if (_downloadedBundle.ContainsKey(uiDetail.resource))
+			return _downloadedBundle[uiDetail.resource].LoadAsset(uiDetail.id);
+		else
+			return Resources.Load(uiDetail.resource);
+	}
 }

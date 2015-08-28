@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <UIRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UITransition id="trans.elasticU" posX="0" posY="1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="0.1" scaleY="0.1" scaleZ="1" time="0.9" delay="0" easetype="easeOutElastic" />
   <UITransition id="trans.bounceL" posX="-1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeOutBounce" />
-  <UITransition id="trans.backR" posX="1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.2" delay="0" easetype="easeInBack" />
+  <UITransition id="trans.backR" posX="1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeInBack" />
   <UITransition id="trans.bounceU" posX="0" posY="1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeOutBounce" />
-  <UITransition id="trans.backD" posX="0" posY="-1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.2" delay="0" easetype="easeInBack" />
+  <UITransition id="trans.backD" posX="0" posY="-1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeInBack" />
   <UIDetail id="portrait" resource="ui/P" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
   <UIDetail id="landscape" resource="ui/L" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
   <UIDetail id="popupP" resource="ui/popupP" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
   <UIDetail id="popupL" resource="ui/popupL" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="scene1" resource="bundle1" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="scene2" resource="bundle2" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="scene3" resource="bundle3" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="scene1" resource="bundle1" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="scene2" resource="bundle2" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="scene3" resource="bundle3" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
   <UISet id="testui" onPortrait="portrait" onLandscape="landscape" />
   <UISet id="testpop" onPortrait="popupP" onLandscape="popupL" />
   <UISet id="test1" onPortrait="scene1" onLandscape="scene1" />

@@ -17,14 +17,44 @@ public	class FageUIMem : FageUICommonMem {
 		_uiDetail = null;
 	}
 
+	private	void SetTweenIn(byte tween, FageUITransition transition, System.Action callback, Transform canvas) {
+		bool move = (tween & FageUITransition.POSITION) != FageUITransition.NONE;
+		bool rotate = (tween & FageUITransition.ROTATION) != FageUITransition.NONE;
+		bool scale = (tween & FageUITransition.SCALE) != FageUITransition.NONE;
+
+		GameObject cach = FageBundleLoader.Instance.Load(uiDetail) as GameObject;
+		GameObject go = GameObject.Instantiate (cach, move ? transition.GetPosition ():_uiDetail.GetPosition (), rotate ? transition.GetRotation ():_uiDetail.GetRotation ()) as GameObject;
+		go.transform.SetParent (canvas, false);
+		_component = go.GetComponent<IFageUIComponent> ();
+		if (scale) {
+			go.transform.localScale = transition.GetScale();
+		}
+		if (move)
+			LeanTween.moveLocal (go, _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (callback);
+		if (rotate)
+			LeanTween.rotateLocal (go, _uiDetail.GetRotation().eulerAngles, transition.time).setDelay(transition.delay).setEase(transition.ease);
+		if (scale)
+			LeanTween.scale (go, _uiDetail.GetScale(), transition.time).setDelay(transition.delay).setEase(transition.ease);
+	}
+
+	private	void SetTweenOut(byte tween, FageUITransition transition, System.Action callback) {
+		bool move = (tween & FageUITransition.POSITION) != FageUITransition.NONE;
+		bool rotate = (tween & FageUITransition.ROTATION) != FageUITransition.NONE;
+		bool scale = (tween & FageUITransition.SCALE) != FageUITransition.NONE;
+
+		GameObject go = _component.GetGameObject();
+		if (move)
+			LeanTween.moveLocal (go, transition.GetPosition(), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (callback);
+		if (rotate)
+			LeanTween.rotateLocal (go, transition.GetRotation().eulerAngles, transition.time).setDelay(transition.delay).setEase(transition.ease);
+		if (scale)
+			LeanTween.scale (go, transition.GetScale(), transition.time).setDelay(transition.delay).setEase(transition.ease);
+	}
+
 	public	void Instantiate(Transform canvas, params object[] param) {
 		_uiDetail = _uiSet.GetCurrentUIDetail ();
-		FageUITransition transition = _uiDetail.GetTransitionOnInstantiate ();
-		GameObject cach = CachedResource.Load<GameObject> (_uiDetail.resource);
-		_component = (GameObject.Instantiate (cach, transition.GetPosition (), transition.GetRotation ()) as GameObject).GetComponent<IFageUIComponent> ();
-		_component.GetGameObject ().transform.SetParent (canvas, false);
+		SetTweenIn(_uiDetail.WhichTransitionOnInstantiate(), _uiDetail.GetTransitionOnInstantiate(), OnInstantiateComplete, canvas);
 		_component.OnUIInstantiate (this, param);
-		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnInstantiateComplete);
 	}
 
 	private void OnInstantiateComplete() {
@@ -33,8 +63,7 @@ public	class FageUIMem : FageUICommonMem {
 	}
 
 	public	void Destroy() {
-		FageUITransition transition = _uiDetail.GetTransitionOnDestroy ();
-		LeanTween.moveLocal (_component.GetGameObject (), transition.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnDestroyComplete);
+		SetTweenOut(_uiDetail.WhichTransitionOnDestroy(), _uiDetail.GetTransitionOnDestroy (), OnDestroyComplete);
 	}
 
 	private	void OnDestroyComplete() {
@@ -47,12 +76,8 @@ public	class FageUIMem : FageUICommonMem {
 	
 	public	void Resume(Transform canvas, params object[] param) {
 		_uiDetail = _uiSet.GetCurrentUIDetail ();
-		FageUITransition transition = _uiDetail.GetTransitionOnResume ();
-		GameObject cach = CachedResource.Load<GameObject> (_uiDetail.resource);
-		_component = (GameObject.Instantiate (cach, transition.GetPosition(), transition.GetRotation()) as GameObject).GetComponent<IFageUIComponent> ();
-		_component.GetGameObject ().transform.SetParent (canvas, false);
+		SetTweenIn(_uiDetail.WhichTransitionOnResume(), _uiDetail.GetTransitionOnResume (), OnResumeComplete, canvas);
 		_component.OnUIResume (this, param);
-		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnResumeComplete);
 	}
 
 	private	void OnResumeComplete() {
@@ -61,8 +86,7 @@ public	class FageUIMem : FageUICommonMem {
 	}
 	
 	public	void Pause() {
-		FageUITransition transition = _uiDetail.GetTransitionOnPause ();
-		LeanTween.moveLocal (_component.GetGameObject (), transition.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnPauseComplete);
+		SetTweenOut(_uiDetail.WhichTransitionOnPause(), _uiDetail.GetTransitionOnPause (), OnPauseComplete);
 	}
 
 	private	void OnPauseComplete() {
@@ -79,8 +103,7 @@ public	class FageUIMem : FageUICommonMem {
 		if (bakDetail == _uiDetail)
 			return;
 
-		FageUITransition transition = bakDetail.GetTransitionOnSwitchOut ();
-		LeanTween.moveLocal (_component.GetGameObject (), transition.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease).setOnComplete (OnScreenOrientationOut);
+		SetTweenOut(bakDetail.WhichTransitionOnSwitchOut(), bakDetail.GetTransitionOnSwitchOut (), OnScreenOrientationOut);
 	}
 
 	private	void OnScreenOrientationOut() {
@@ -88,12 +111,11 @@ public	class FageUIMem : FageUICommonMem {
 		Transform canvas = go.transform.parent;
 		_component.OnSwitchOut (this);
 		GameObject.Destroy (go);
-		
-		FageUITransition transition = _uiDetail.GetTransitionOnSwitchIn ();
-		GameObject cach = CachedResource.Load<GameObject> (_uiDetail.resource);
-		_component = (GameObject.Instantiate (cach, transition.GetPosition(), transition.GetRotation()) as GameObject).GetComponent<IFageUIComponent> ();
-		_component.GetGameObject ().transform.SetParent (canvas, false);
+
+		SetTweenIn(_uiDetail.WhichTransitionOnSwitchIn(), _uiDetail.GetTransitionOnSwitchIn (), OnScreenOrientationComplete, canvas);
 		_component.OnSwitchIn (this);
-		LeanTween.moveLocal (_component.GetGameObject (), _uiDetail.GetPosition (), transition.time).setDelay (transition.delay).setEase (transition.ease);
+	}
+
+	private void OnScreenOrientationComplete() {
 	}
 }
