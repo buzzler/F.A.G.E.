@@ -16,10 +16,10 @@ public class Test : FageEventDispatcher {
 				control = null;
 			}
 
-			FageAudioManager.Instance.Play("background", "clips/POL-lunar-love-short", ref control, true);
+			FageAudioManagerEx.Instance.Play("background", "assets/bundle/audio/bgm_lunar.wav", ref control, true);
 		}
 		if (GUI.Button (new Rect (Screen.width/2,0,Screen.width/2, Screen.height/2), "REQUEST2")) {
-			FageAudioManager.Instance.Play("effect", "clips/NFF-coin-03");
+			FageAudioManagerEx.Instance.Play("coin", "assets/bundle/audio/fx_coin.wav");
 
 			FageUIManager.Instance.Change(FageUIRoot.Instance.FindUISet("testui"));
 			gameObject.SetActive(false);

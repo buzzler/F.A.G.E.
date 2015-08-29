@@ -53,9 +53,16 @@ public class FageBundleLoader : FageStateMachine {
 		return _downloadedBundle;
 	}
 
+	public	object Load(string id) {
+		if (_loadedAsset.ContainsKey (id))
+			return _loadedAsset [id];
+		else
+			return Resources.Load (id);
+	}
+
 	public	object Load(FageUIDetail uiDetail) {
 		if (_loadedAsset.ContainsKey(uiDetail.id))
-			return _loadedAsset[id];
+			return _loadedAsset[uiDetail.id];
 		else if (_downloadedBundle.ContainsKey(uiDetail.resource))
 			return _downloadedBundle[uiDetail.resource].LoadAsset(uiDetail.id);
 		else

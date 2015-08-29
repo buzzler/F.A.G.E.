@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 743474499
+CRC: 2279692799
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 25209e12b08fdcf54b1f300e4776c13e
+    Hash: cf5ca3cb81e9388081dcfd598bbccc4d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0bdca289edfa5288eb06f33d07b8e6c7
@@ -38,5 +38,8 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefab/scene1.prefab
+- Assets/Bundle/Prefab/scene1.prefab
+- Assets/Bundle/Audio/POL-higher-short.wav
+- Assets/Bundle/Audio/fx_coin.wav
+- Assets/Bundle/Audio/bgm_lunar.wav
 Dependencies: []

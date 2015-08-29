@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 85ccf640662d948da91fa111a6ccc613
-timeCreated: 1436554080
+guid: 0835f265a5cff431c800a74d9d62adb8
+timeCreated: 1440869402
 licenseType: Free
 AudioImporter:
   serializedVersion: 6
@@ -17,5 +17,5 @@ AudioImporter:
   loadInBackground: 0
   3D: 1
   userData: 
-  assetBundleName: 
+  assetBundleName: bundle1.unity3d
   assetBundleVariant: 

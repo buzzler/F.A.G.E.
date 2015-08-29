@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 143917713
+CRC: 1852986424
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4921d4b4dbe4ce1cd3634627d94b1c92
+    Hash: 3c5e99df97355d3cfa64f146d87e730f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0bdca289edfa5288eb06f33d07b8e6c7
@@ -38,5 +38,6 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefab/scene2.prefab
+- Assets/Bundle/Audio/POL-interstellar-short.wav
+- Assets/Bundle/Prefab/scene2.prefab
 Dependencies: []

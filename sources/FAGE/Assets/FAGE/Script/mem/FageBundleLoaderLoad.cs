@@ -64,7 +64,11 @@ public class FageBundleLoaderLoad : FageState {
 				loadedAsset.Remove(abname);
 			}
 			loadedBundles.Remove(s);
-		}	
+		}
+		if (queueBundle.Count > 0) {
+			AssetBundle ab = queueBundle.Peek () as AssetBundle;
+			queueAsset = new Queue (ab.GetAllAssetNames ());
+		}
 	}
 
 	public override void Excute (FageStateMachine stateMachine) {

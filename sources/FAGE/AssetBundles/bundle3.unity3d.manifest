@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2413535024
+CRC: 582184094
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3a139ab98b173be9c0de6943dfb3e9d1
+    Hash: 338f83e1ea05df27b5244d6f11f6bcee
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0bdca289edfa5288eb06f33d07b8e6c7
@@ -38,5 +38,6 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefab/scene3.prefab
+- Assets/Bundle/Audio/POL-phunkstep-short.wav
+- Assets/Bundle/Prefab/scene3.prefab
 Dependencies: []
