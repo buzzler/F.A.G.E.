@@ -3,4 +3,6 @@
   <Bundle id="bundle1" dynamic="false" url="http://file.unityscene.com/util/bundle/bundle1.unity3d" version="1" />
   <Bundle id="bundle2" dynamic="true" url="http://file.unityscene.com/util/bundle/bundle2.unity3d" version="1" />
   <Bundle id="bundle3" dynamic="true" url="http://file.unityscene.com/util/bundle/bundle3.unity3d" version="1" />
+  <Bundle id="bundle4" dynamic="true" url="http://file.unityscene.com/util/bundle/bundle4.unity3d" version="1" />
+  <Bundle id="bundle5" dynamic="true" url="http://file.unityscene.com/util/bundle/bundle5.unity3d" version="1" />
 </BundleRoot>

@@ -49,8 +49,10 @@ public class FageBundleLoaderDownload : FageState {
 			List<string> scenes = FageBundleLoader.Instance.GetLoadedScene();
 			string[] paths = wevent.www.assetBundle.GetAllScenePaths();
 			for (int i = 0 ; i < paths.Length ; i++) {
-				if (!scenes.Contains(paths[i]))
+				if (!scenes.Contains(paths[i])) {
 					scenes.Add(paths[i]);
+					Debug.Log(paths[i]);
+				}
 			}
 
 			wevent.www.Dispose();

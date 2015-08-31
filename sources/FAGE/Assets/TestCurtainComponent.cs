@@ -23,4 +23,8 @@ public class TestCurtainComponent : MonoBehaviour, IFageUICurtainComponent {
 	public	void SetProgress(float progress) {
 		textProgress.text = ((int)(progress * 100f)).ToString () + "%";
 	}
+
+	public	GameObject GetGameObject() {
+		return gameObject;
+	}
 }

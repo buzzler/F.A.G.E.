@@ -59,18 +59,27 @@ public class FageBundleLoader : FageStateMachine {
 		return _downloadedBundle;
 	}
 
-	public	AsyncOperation LoadLevel(string id) {
-		if (_loadedScene.Contains (id))
-			return Application.LoadLevelAsync (id);
+	public	AsyncOperation LoadLevel(string asset) {
+#if UNITY_EDITOR
+		return UnityEditor.EditorApplication.LoadLevelAsyncInPlayMode(asset);
+#else
+		if (_loadedScene.Contains (asset))
+			return Application.LoadLevelAsync (asset);
 		else
-			throw new UnityException ("unknown scene id : " + id);
+			throw new UnityException ("unknown scene asset : " + asset);
+#endif
+
 	}
 
-	public	AsyncOperation LoadLevelAdditive(string id) {
-		if (_loadedScene.Contains (id))
-			return Application.LoadLevelAdditiveAsync (id);
+	public	AsyncOperation LoadLevelAdditive(string asset) {
+#if UNITY_EDITOR
+		return UnityEditor.EditorApplication.LoadLevelAdditiveAsyncInPlayMode(asset);
+#else
+		if (_loadedScene.Contains (asset))
+			return Application.LoadLevelAdditiveAsync (asset);
 		else
-			throw new UnityException ("unknown scene id : " + id);
+			throw new UnityException ("unknown scene asset : " + asset);
+#endif
 	}
 
 	public	object Load(string id) {
