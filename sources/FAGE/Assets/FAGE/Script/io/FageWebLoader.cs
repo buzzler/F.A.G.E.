@@ -35,6 +35,9 @@ public class FageWebLoader : FageEventDispatcher {
 				FageWebState current = _queue.Dequeue() as FageWebState;
 				DispatchEvent (new FageWebEvent (FageEvent.COMPLETE, current.requestId, _www));
 				_www = null;
+			} else {
+				FageWebState current = _queue.Peek() as FageWebState;
+				DispatchEvent (new FageWebEvent (FageWebEvent.PROGRESS, current.requestId, _www.progress));
 			}
 		} else if ((_queue.Count > 0) && _excute) {
 			FageWebState current = _queue.Peek() as FageWebState;

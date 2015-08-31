@@ -35,6 +35,10 @@ public class FageUIManager : FageStateMachine {
 		return _queueUIPopup;
 	}
 
+	public	void Level(FageUIScene uiScene, FageUICurtain uiCurtain) {
+		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.LEVEL, uiScene, uiCurtain));
+	}
+
 	public	void Change(FageUISet uiSet, params object[] param) {
 		_queueRequest.Enqueue(new FageUIRequest(FageUIRequest.CHANGE, uiSet, param));
 	}

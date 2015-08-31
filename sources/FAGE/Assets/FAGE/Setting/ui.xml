@@ -5,16 +5,20 @@
   <UITransition id="trans.backR" posX="1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeInBack" />
   <UITransition id="trans.bounceU" posX="0" posY="1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeOutBounce" />
   <UITransition id="trans.backD" posX="0" posY="-1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeInBack" />
-  <UIDetail id="portrait" resource="ui/P" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
-  <UIDetail id="landscape" resource="ui/L" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="popupP" resource="ui/popupP" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
-  <UIDetail id="popupL" resource="ui/popupL" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="assets/bundle/prefab/scene1.prefab" resource="bundle1" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="assets/bundle/prefab/scene2.prefab" resource="bundle2" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
-  <UIDetail id="assets/bundle/prefab/scene3.prefab" resource="bundle3" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="portrait" asset="ui/P" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
+  <UIDetail id="landscape" asset="ui/L" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="popupP" asset="ui/popupP" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
+  <UIDetail id="popupL" asset="ui/popupL" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="detail1" asset="assets/bundle/prefab/scene1.prefab" bundle="bundle1" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="detail2" asset="assets/bundle/prefab/scene2.prefab" bundle="bundle2" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+  <UIDetail id="detail3" asset="assets/bundle/prefab/scene3.prefab" bundle="bundle3" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
   <UISet id="testui" onPortrait="portrait" onLandscape="landscape" />
   <UISet id="testpop" onPortrait="popupP" onLandscape="popupL" />
-  <UISet id="test1" onPortrait="assets/bundle/prefab/scene1.prefab" onLandscape="assets/bundle/prefab/scene1.prefab" />
-  <UISet id="test2" onPortrait="assets/bundle/prefab/scene2.prefab" onLandscape="assets/bundle/prefab/scene2.prefab" />
-  <UISet id="test3" onPortrait="assets/bundle/prefab/scene3.prefab" onLandscape="assets/bundle/prefab/scene3.prefab" />
+  <UISet id="test1" onPortrait="detail1" onLandscape="detail1" />
+  <UISet id="test2" onPortrait="detail2" onLandscape="detail2" />
+  <UISet id="test3" onPortrait="detail3" onLandscape="detail3" />
+  <UICurtain id="curtainblack" asset="assets/bundle/prefab/curtainb.prefab" bundle="bundle1" />
+  <UICurtain id="curtainwhite" asset="assets/bundle/prefab/curtainw.prefab" bundle="bundle1" />
+  <UIScene id="subscene1" asset="assets/bundle/scene/subscene1.unity" />
+  <UIScene id="subscene2" asset="assets/bundle/scene/subscene2.unity" />
 </UIRoot>

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -23,14 +23,14 @@ public class FageBundleLoaderLoad : FageState {
 		Queue queue = manager.GetQueue();
 		if (stack.Count > 0) {
 			FageUIMem mem = stack.Peek() as FageUIMem;
-			foreach (string s in mem.uiSet.GetResources()) {
+			foreach (string s in mem.uiSet.GetBundles()) {
 				if (!resources.Contains(s))
 					resources.Add(s);
 			}
 		}
 		if (queue.Count > 0) {
 			FageUIPopupMem mem = queue.Peek() as FageUIPopupMem;
-			foreach (string s in mem.uiSet.GetResources()) {
+			foreach (string s in mem.uiSet.GetBundles()) {
 				if (!resources.Contains(s))
 					resources.Add(s);
 			}
@@ -69,6 +69,8 @@ public class FageBundleLoaderLoad : FageState {
 			AssetBundle ab = queueBundle.Peek () as AssetBundle;
 			queueAsset = new Queue (ab.GetAllAssetNames ());
 		}
+
+		stateMachine.DispatchEvent (new FageBundleEvent(FageBundleEvent.LOADING));
 	}
 
 	public override void Excute (FageStateMachine stateMachine) {

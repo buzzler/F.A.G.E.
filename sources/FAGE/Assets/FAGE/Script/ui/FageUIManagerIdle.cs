@@ -27,6 +27,9 @@ public class FageUIManagerIdle : FageState {
 			case FageUIRequest.POPDOWN:
 				ExcutePopdown(manager, request);
 				break;
+			case FageUIRequest.LEVEL:
+				ExcuteLevel(manager, request);
+				break;
 			default:
 				throw new UnityException("unknown commnad");
 			}
@@ -69,6 +72,10 @@ public class FageUIManagerIdle : FageState {
 		stack.Push (current);
 
 		manager.GetRequests ().Dequeue ();
+	}
+
+	private	void ExcuteLevel(FageUIManager manager, FageUIRequest request) {
+		manager.ReserveState ("FageUIManagerCurtClose");
 	}
 
 	public override void BeforeSwitch (FageStateMachine stateMachine, string afterId) {

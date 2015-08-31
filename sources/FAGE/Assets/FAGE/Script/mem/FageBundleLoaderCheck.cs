@@ -9,6 +9,8 @@ public class FageBundleLoaderCheck : FageState {
 		base.AfterSwitch (stateMachine, beforeId);
 		FageWebLoader.Instance.AddEventListener(FageEvent.COMPLETE, OnResponse);
 		_requestId = FageWebLoader.Instance.Request(FageBundleRoot.Instance.url);
+
+		stateMachine.DispatchEvent (new FageBundleEvent(FageBundleEvent.CHECK_UPDATE));
 	}
 
 	private	void OnResponse(FageEvent fevent) {

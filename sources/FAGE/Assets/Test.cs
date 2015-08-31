@@ -4,10 +4,9 @@ using System.Collections;
 public class Test : FageEventDispatcher {
 	private	FageAudioSourceControl control;
 
-	void OnEnable() {
-	}
-
-	void OnDisable() {
+	private	void OnDownload(FageEvent fevent) {
+		FageBundleEvent bevent = fevent as FageBundleEvent;
+		Debug.Log (bevent.progress);
 	}
 
 	void OnGUI() {

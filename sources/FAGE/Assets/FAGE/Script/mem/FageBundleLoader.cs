@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,6 +11,7 @@ public class FageBundleLoader : FageStateMachine {
 	public	bool						flagUpdate;
 	public	float						expireTime;
 	private	float						_timeLastUpdate;
+	private	List<string>				_loadedScene;
 	private	List<string>				_loadedBundle;
 	private	Dictionary<string, object>	_loadedAsset;
 	private	Dictionary<string, AssetBundle>	_downloadedBundle;
@@ -18,13 +19,14 @@ public class FageBundleLoader : FageStateMachine {
 	void Awake() {
 		_instance = this;
 		_timeLastUpdate = Time.unscaledTime;
-		_loadedBundle = new List<string>();
-		_loadedAsset = new Dictionary<string, object>();
-		_downloadedBundle = new Dictionary<string, AssetBundle>();
-		FageBundleRoot.LoadFromText(setting.text);
+		_loadedScene = new List<string> ();
+		_loadedBundle = new List<string> ();
+		_loadedAsset = new Dictionary<string, object> ();
+		_downloadedBundle = new Dictionary<string, AssetBundle> ();
+		FageBundleRoot.LoadFromText (setting.text);
 
 		if (flagUpdateBoot) {
-			ReserveState("FageBundleLoaderCheck");
+			ReserveState ("FageBundleLoaderCheck");
 		}
 	}
 
@@ -41,6 +43,10 @@ public class FageBundleLoader : FageStateMachine {
 		flagUpdate = true;
 	}
 
+	public	List<string> GetLoadedScene() {
+		return _loadedScene;
+	}
+
 	public	List<string> GetLoadedBundles() {
 		return _loadedBundle;
 	}
@@ -53,6 +59,20 @@ public class FageBundleLoader : FageStateMachine {
 		return _downloadedBundle;
 	}
 
+	public	AsyncOperation LoadLevel(string id) {
+		if (_loadedScene.Contains (id))
+			return Application.LoadLevelAsync (id);
+		else
+			throw new UnityException ("unknown scene id : " + id);
+	}
+
+	public	AsyncOperation LoadLevelAdditive(string id) {
+		if (_loadedScene.Contains (id))
+			return Application.LoadLevelAdditiveAsync (id);
+		else
+			throw new UnityException ("unknown scene id : " + id);
+	}
+
 	public	object Load(string id) {
 		if (_loadedAsset.ContainsKey (id))
 			return _loadedAsset [id];
@@ -61,11 +81,19 @@ public class FageBundleLoader : FageStateMachine {
 	}
 
 	public	object Load(FageUIDetail uiDetail) {
-		if (_loadedAsset.ContainsKey(uiDetail.id))
-			return _loadedAsset[uiDetail.id];
-		else if (_downloadedBundle.ContainsKey(uiDetail.resource))
-			return _downloadedBundle[uiDetail.resource].LoadAsset(uiDetail.id);
+		return Load (uiDetail.asset, uiDetail.bundle);
+	}
+
+	public	object Load(FageUICurtain uiCurtain) {
+		return Load (uiCurtain.asset, uiCurtain.bundle);
+	}
+
+	public	object Load(string asset, string bundle) {
+		if (_loadedAsset.ContainsKey (asset))
+			return _loadedAsset [asset];
+		else if (_downloadedBundle.ContainsKey (bundle))
+			return _downloadedBundle [bundle].LoadAsset (asset);
 		else
-			return Resources.Load(uiDetail.resource);
+			return Resources.Load (asset);
 	}
 }
