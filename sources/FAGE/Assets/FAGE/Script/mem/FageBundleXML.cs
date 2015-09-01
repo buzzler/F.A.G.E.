@@ -48,8 +48,10 @@ public	class FageBundle {
 	public	string	id;
 	[XmlAttribute("dynamic")]
 	public	bool	isDynamic;
-	[XmlAttribute("url")]
-	public	string	url;
+	[XmlAttribute("ios")]
+	public	string	ios;
+	[XmlAttribute("android")]
+	public	string	android;
 	[XmlAttribute("version")]
 	public	int		version;
 }

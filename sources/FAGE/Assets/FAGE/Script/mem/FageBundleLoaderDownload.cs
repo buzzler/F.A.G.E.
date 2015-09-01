@@ -14,9 +14,11 @@ public class FageBundleLoaderDownload : FageState {
 		_hash = new Hashtable();
 		foreach (FageBundle bundle in FageBundleRoot.Instance.bundles) {
 #if UNITY_EDITOR
-			_hash.Add(loader.Request(bundle.url), bundle);
-#else
-			_hash.Add(loader.Request(bundle.url, bundle.version), bundle);
+			_hash.Add(loader.Request(bundle.ios), bundle);
+#elif UNITY_IOS
+			_hash.Add(loader.Request(bundle.ios, bundle.version), bundle);
+#elif UNITY_ANDROID
+			_hash.Add(loader.Request(bundle.android, bundle.version), bundle);
 #endif
 		}
 		_total = (float)_hash.Count;
