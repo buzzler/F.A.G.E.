@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1395187894
+CRC: 1246217986
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5e759f8aaab4e8d55fda77d282146801
+    Hash: 88747b7e906cd399b4837bb2015932c5
   TypeTreeHash:
     serializedVersion: 2
     Hash: 79b9cb1769689c8df1a8c072ab09f45e
@@ -54,5 +54,5 @@ ClassTypes:
 - Class: 258
   Script: {instanceID: 0}
 Assets:
-- Assets/Bundle/Scene/subscene1.unity
+- Assets/Bundle/Scene/subscene0.unity
 Dependencies: []

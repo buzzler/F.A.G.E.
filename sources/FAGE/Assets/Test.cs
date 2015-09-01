@@ -21,14 +21,14 @@ public class Test : FageEventDispatcher {
 //	}
 
 	public	void OnClick1() {
-
+		FageUIManager.Instance.Level("subscene0", FageUIRoot.Instance.FindUICurtain("curtainwhite"));
 	}
 
 	public	void OnClick2() {
-		FageUIManager.Instance.Level(FageUIRoot.Instance.FindUIScene("subscene1"), FageUIRoot.Instance.FindUICurtain("curtainblack"));
+		FageUIManager.Instance.Level("subscene1", FageUIRoot.Instance.FindUICurtain("curtainblack"));
 	}
 
 	public	void OnClick3() {
-		FageUIManager.Instance.Level(FageUIRoot.Instance.FindUIScene("subscene2"), FageUIRoot.Instance.FindUICurtain("curtainwhite"));
+		FageUIManager.Instance.Level("subscene2", FageUIRoot.Instance.FindUICurtain("curtainwhite"));
 	}
 }

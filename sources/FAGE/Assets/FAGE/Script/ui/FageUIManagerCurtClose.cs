@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FageUIManagerCurtClose : FageState {
@@ -7,8 +7,8 @@ public class FageUIManagerCurtClose : FageState {
 		FageUIManager manager = stateMachine as FageUIManager;
 		FageUIRequest request = manager.GetRequests ().Peek () as FageUIRequest;
 
-		if ((request.uiCurtain == null) || (request.uiScene == null))
-			throw new UnityException ("parameter (FageUICurtain, FageUIScene) is required");
+		if ((request.uiCurtain == null) || (request.levelName == null))
+			throw new UnityException ("parameter (FageUICurtain, levelName) is required");
 
 		GameObject go = GameObject.Instantiate (FageBundleLoader.Instance.Load (request.uiCurtain) as GameObject);
 		go.transform.SetParent (manager.canvas, false);

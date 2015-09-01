@@ -19,6 +19,4 @@
   <UISet id="test3" onPortrait="detail3" onLandscape="detail3" />
   <UICurtain id="curtainblack" asset="assets/bundle/prefab/curtainb.prefab" bundle="bundle1" />
   <UICurtain id="curtainwhite" asset="assets/bundle/prefab/curtainw.prefab" bundle="bundle1" />
-  <UIScene id="subscene1" asset="Assets/Bundle/Scene/subscene1.unity" />
-  <UIScene id="subscene2" asset="Assets/Bundle/Scene/subscene2.unity" />
 </UIRoot>

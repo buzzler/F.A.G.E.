@@ -8,9 +8,9 @@ public class FageUIManagerLoad : FageState {
 		base.AfterSwitch (stateMachine, beforeId);
 		FageUIManager manager = stateMachine as FageUIManager;
 		FageUIRequest request = manager.GetRequests ().Peek () as FageUIRequest;
-		FageUIScene uiScene = request.uiScene;
+		string levelName = request.levelName;
 
-		_async = FageBundleLoader.Instance.LoadLevel(uiScene.asset);
+		_async = FageBundleLoader.Instance.LoadLevel(levelName);
 	}
 
 	public override void Excute (FageStateMachine stateMachine) {

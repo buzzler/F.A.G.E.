@@ -12,13 +12,13 @@ public class FageUIRequest {
 
 	private	string			_command;
 	private	FageUISet		_uiSet;
-	private	FageUIScene		_uiScene;
+	private	string			_levelName;
 	private	FageUICurtain	_uiCurtain;
 	private	object[]		_param;
 
 	public	string			command		{ get { return _command; } }
 	public	FageUISet		uiSet		{ get { return _uiSet; } }
-	public	FageUIScene		uiScene		{ get { return _uiScene; } }
+	public	string			levelName	{ get { return _levelName; } }
 	public	FageUICurtain	uiCurtain	{ get { return _uiCurtain; } }
 	public	object[]		param		{ get { return _param; } }
 
@@ -28,9 +28,9 @@ public class FageUIRequest {
 		_param = param;
 	}
 
-	public	FageUIRequest(string command, FageUIScene uiScene, FageUICurtain uiCurtain) {
+	public	FageUIRequest(string command, string levelName, FageUICurtain uiCurtain) {
 		_command = command;
-		_uiScene = uiScene;
+		_levelName = levelName;
 		_uiCurtain = uiCurtain;
 	}
 

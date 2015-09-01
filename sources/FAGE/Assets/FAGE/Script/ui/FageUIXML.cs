@@ -20,14 +20,11 @@ public	class FageUIRoot {
 	public	FageUISet[]			sets;
 	[XmlElement("UICurtain")]
 	public	FageUICurtain[]		curtains;
-	[XmlElement("UIScene")]
-	public	FageUIScene[]		scenes;
 
 	private	Dictionary<string, FageUITransition>	_dicTransition;
 	private	Dictionary<string, FageUIDetail>		_dicDetail;
 	private	Dictionary<string, FageUISet>			_dicSet;
 	private	Dictionary<string, FageUICurtain>		_dicCurtain;
-	private	Dictionary<string, FageUIScene>			_dicScene;
 
 	public	FageUIRoot() {
 		transitions		= new FageUITransition[0];
@@ -37,7 +34,6 @@ public	class FageUIRoot {
 		_dicDetail		= new Dictionary<string, FageUIDetail> ();
 		_dicSet			= new Dictionary<string, FageUISet> ();
 		_dicCurtain		= new Dictionary<string, FageUICurtain> ();
-		_dicScene		= new Dictionary<string, FageUIScene> ();
 	}
 
 	private	void Hashing() {
@@ -45,7 +41,6 @@ public	class FageUIRoot {
 		_dicDetail.Clear ();
 		_dicSet.Clear ();
 		_dicCurtain.Clear ();
-		_dicScene.Clear ();
 
 		foreach (FageUITransition trans in transitions) {
 			_dicTransition.Add (trans.id, trans);
@@ -58,9 +53,6 @@ public	class FageUIRoot {
 		}
 		foreach (FageUICurtain curtain in curtains) {
 			_dicCurtain.Add (curtain.id, curtain);
-		}
-		foreach (FageUIScene scene in scenes) {
-			_dicScene.Add (scene.id, scene);
 		}
 	}
 
@@ -92,13 +84,6 @@ public	class FageUIRoot {
 			return null;
 	}
 
-	public	FageUIScene FindUIScene(string id) {
-		if (_dicScene.ContainsKey(id))
-			return _dicScene[id];
-		else
-			return null;
-	}
-
 	public	static void LoadFromText(string text) {
 		var serializer = new XmlSerializer(typeof(FageUIRoot));
 		_instance = serializer.Deserialize(new StringReader(text)) as FageUIRoot;
@@ -113,13 +98,6 @@ public	class FageUICurtain {
 	public	string asset;
 	[XmlAttribute("bundle")]
 	public	string bundle;
-}
-
-public	class FageUIScene {
-	[XmlAttribute("id")]
-	public	string id;
-	[XmlAttribute("asset")]
-	public	string asset;
 }
 
 public	class FageUISet {

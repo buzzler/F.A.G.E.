@@ -60,6 +60,8 @@ public class FageBundleLoader : FageStateMachine {
 	}
 
 	public	AsyncOperation LoadLevel(string asset) {
+		if (!_loadedScene.Contains (asset))
+			return Application.LoadLevelAsync (asset);
 #if UNITY_EDITOR
 		return UnityEditor.EditorApplication.LoadLevelAsyncInPlayMode(asset);
 #else
@@ -68,10 +70,11 @@ public class FageBundleLoader : FageStateMachine {
 		else
 			throw new UnityException ("unknown scene asset : " + asset);
 #endif
-
 	}
 
 	public	AsyncOperation LoadLevelAdditive(string asset) {
+		if (!_loadedScene.Contains (asset))
+			return Application.LoadLevelAdditiveAsync (asset);
 #if UNITY_EDITOR
 		return UnityEditor.EditorApplication.LoadLevelAdditiveAsyncInPlayMode(asset);
 #else
