@@ -5,8 +5,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-//[XmlRoot(Namespace = "http://unityscene.com", ElementName = "BundleRoot", DataType = "string", IsNullable=true)]
-[XmlRoot("BundleRoot")]
 public class FageBundleRoot {
 	private	static FageBundleRoot _instance;
 	public	static FageBundleRoot Instance { get { return _instance; } }
@@ -18,22 +16,23 @@ public class FageBundleRoot {
 	private	Dictionary<string, FageBundle>	_dictionary;
 
 	public	FageBundleRoot() {
+		_instance = this;
 		bundles = new FageBundle[0];
 		_dictionary = new Dictionary<string, FageBundle>();
 	}
 
-	private	void Hashing() {
+	public	void Hashing() {
 		_dictionary.Clear();
 		foreach (FageBundle bundle in bundles) {
 			_dictionary.Add(bundle.id, bundle);
 		}
 	}
 
-	public	static void LoadFromText(string text) {
-		var serializer = new XmlSerializer(typeof(FageBundleRoot));
-		_instance = serializer.Deserialize(new StringReader(text)) as FageBundleRoot;
-		_instance.Hashing();
-	}
+//	public	static void LoadFromText(string text) {
+//		var serializer = new XmlSerializer(typeof(FageBundleRoot));
+//		_instance = serializer.Deserialize(new StringReader(text)) as FageBundleRoot;
+//		_instance.Hashing();
+//	}
 
 	public	FageBundle FindBundle(string id) {
 		if (_dictionary.ContainsKey(id))

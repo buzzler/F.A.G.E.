@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<BundleRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/util/bundle/bundle.xml">
-  <Bundle id="bundle1" dynamic="false" ios="http://file.unityscene.com/util/bundle/ios/bundle1.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle1.unity3d" version="1" />
-  <Bundle id="bundle2" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle2.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle2.unity3d" version="1" />
-  <Bundle id="bundle3" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle3.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle3.unity3d" version="1" />
-  <Bundle id="bundle4" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle4.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle4.unity3d" version="1" />
-  <Bundle id="bundle5" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle5.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle5.unity3d" version="1" />
-</BundleRoot>

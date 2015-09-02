@@ -4,13 +4,11 @@ using System.Collections;
 public class FageAudioManagerEx : FageStateMachine {
 	private	static FageAudioManagerEx	_instance;
 	public	static FageAudioManagerEx	Instance { get { return _instance; } }
-	public	TextAsset setting;
+
 	private	FageAudioRoot _audioRoot;
 
 	void Awake() {
 		_instance = this;
-		FageAudioRoot.LoadFromText (setting.text);
-
 		_audioRoot = FageAudioRoot.Instance;
 		AudioListener listener = (new GameObject ("AudioChannels", typeof(AudioListener))).GetComponent<AudioListener> ();
 		listener.transform.SetParent (transform);

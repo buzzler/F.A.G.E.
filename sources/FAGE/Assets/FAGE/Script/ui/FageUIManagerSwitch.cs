@@ -40,7 +40,7 @@ public class FageUIManagerSwitch : FageState {
 		FageUIMem current = new FageUIMem (request.uiSet);
 		stack.Push (current);
 		// load bundle
-		FageBundleLoader.Instance.ReserveUpdate();
+		FageBundleLoader.Instance.ReserveLoad();
 	}
 
 	private	void ExcuteChange (FageUIManager manager, FageUIRequest request) {
@@ -52,7 +52,7 @@ public class FageUIManagerSwitch : FageState {
 		FageUIMem current = new FageUIMem (request.uiSet);
 		stack.Push (current);
 		// load bundle
-		FageBundleLoader.Instance.ReserveUpdate();
+		FageBundleLoader.Instance.ReserveLoad();
 	}
 
 
@@ -69,7 +69,7 @@ public class FageUIManagerSwitch : FageState {
 		}
 
 		// load bundle
-		FageBundleLoader.Instance.ReserveUpdate();
+		FageBundleLoader.Instance.ReserveLoad();
 	}
 
 	private	void ExcutePopup (FageUIManager manager, FageUIRequest request) {
@@ -80,7 +80,7 @@ public class FageUIManagerSwitch : FageState {
 			return;
 		}
 		// load bundle
-		FageBundleLoader.Instance.ReserveUpdate();
+		FageBundleLoader.Instance.ReserveLoad();
 	}
 
 	private	void ExcutePopdown (FageUIManager manager, FageUIRequest request) {
@@ -95,7 +95,7 @@ public class FageUIManagerSwitch : FageState {
 			return;
 		}
 		// load bundle
-		FageBundleLoader.Instance.ReserveUpdate();
+		FageBundleLoader.Instance.ReserveLoad();
 	}
 	
 	public override void Excute (FageStateMachine stateMachine) {

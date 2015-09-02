@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/util/bundle/setting.xml">
+	<BundleRoot>
+	  <Bundle id="bundle1" dynamic="false" ios="http://file.unityscene.com/util/bundle/ios/bundle1.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle1.unity3d" version="1" />
+	  <Bundle id="bundle2" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle2.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle2.unity3d" version="1" />
+	  <Bundle id="bundle3" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle3.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle3.unity3d" version="1" />
+	  <Bundle id="bundle4" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle4.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle4.unity3d" version="1" />
+	  <Bundle id="bundle5" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle5.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle5.unity3d" version="1" />
+	</BundleRoot>
+	<UIRoot>
+	  <UITransition id="trans.elasticU" posX="0" posY="1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="0.1" scaleY="0.1" scaleZ="1" time="0.9" delay="0" easetype="easeOutElastic" />
+	  <UITransition id="trans.bounceL" posX="-1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeOutBounce" />
+	  <UITransition id="trans.backR" posX="1400" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeInBack" />
+	  <UITransition id="trans.bounceU" posX="0" posY="1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeOutBounce" />
+	  <UITransition id="trans.backD" posX="0" posY="-1400" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" time="0.5" delay="0" easetype="easeInBack" />
+	  <UIDetail id="portrait" asset="ui/P" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
+	  <UIDetail id="landscape" asset="ui/L" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+	  <UIDetail id="popupP" asset="ui/popupP" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceL" onDestroy="trans.backR" onResume="trans.bounceU" onPause="trans.backD" onSwitchIn="trans.bounceU" onSwitchOut="trans.backD" />
+	  <UIDetail id="popupL" asset="ui/popupL" bundle="" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.bounceU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+	  <UIDetail id="detail1" asset="assets/bundle/prefab/scene1.prefab" bundle="bundle1" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+	  <UIDetail id="detail2" asset="assets/bundle/prefab/scene2.prefab" bundle="bundle2" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+	  <UIDetail id="detail3" asset="assets/bundle/prefab/scene3.prefab" bundle="bundle3" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="1" scaleY="1" scaleZ="1" onInstantiate="trans.elasticU" onDestroy="trans.backD" onResume="trans.bounceL" onPause="trans.backR" onSwitchIn="trans.bounceL" onSwitchOut="trans.backR" />
+	  <UISet id="testui" onPortrait="portrait" onLandscape="landscape" />
+	  <UISet id="testpop" onPortrait="popupP" onLandscape="popupL" />
+	  <UISet id="test1" onPortrait="detail1" onLandscape="detail1" />
+	  <UISet id="test2" onPortrait="detail2" onLandscape="detail2" />
+	  <UISet id="test3" onPortrait="detail3" onLandscape="detail3" />
+	  <UICurtain id="curtainblack" asset="assets/bundle/prefab/curtainb.prefab" bundle="bundle1" />
+	  <UICurtain id="curtainwhite" asset="assets/bundle/prefab/curtainw.prefab" bundle="bundle1" />
+	</UIRoot>
+	<AudioRoot id="root" volume="1">
+	  <AudioXML id="background" volume="1" channels="1" />
+	  <AudioXML id="effect" volume="1" channels="0">
+	  	<AudioXML id="coin" volume="1" channels="1"/>
+	  	<AudioXML id="voice" volume="1" channels="1"/>
+	  	<AudioXML id="fx" volume="1" channels="1"/>
+	  	<AudioXML id="score" volume="1" channels="1"/>
+	  </AudioXML>
+	</AudioRoot>
+</Config>

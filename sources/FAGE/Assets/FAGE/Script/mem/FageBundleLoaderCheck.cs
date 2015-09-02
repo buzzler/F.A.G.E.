@@ -3,12 +3,12 @@ using System.Collections;
 
 public class FageBundleLoaderCheck : FageState {
 	private	int _requestId;
-	private	const string _KEY = "bundle.xml";
+	private	const string _KEY = "config.xml";
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
 		FageWebLoader.Instance.AddEventListener(FageEvent.COMPLETE, OnResponse);
-		_requestId = FageWebLoader.Instance.Request(FageBundleRoot.Instance.url);
+		_requestId = FageWebLoader.Instance.Request(FageConfig.Instance.url);
 
 		stateMachine.DispatchEvent (new FageBundleEvent(FageBundleEvent.CHECK_UPDATE));
 	}
@@ -22,12 +22,12 @@ public class FageBundleLoaderCheck : FageState {
 		FageWebLoader.Instance.RemoveEventListener(FageEvent.COMPLETE, OnResponse);
 		if (string.IsNullOrEmpty(wevent.www.error)) {
 			string str = wevent.www.text;
-			FageBundleRoot.LoadFromText(str);
+			FageConfig.LoadFromText(str);
 			Utility.SetPrefString(_KEY, str);
 			loader.ReserveState("FageBundleLoaderDownload");
 			Debug.Log(str);
 		} else if (Utility.HasKey(_KEY)) {
-			FageBundleRoot.LoadFromText(Utility.GetPrefString(_KEY));
+			FageConfig.LoadFromText(Utility.GetPrefString(_KEY));
 			loader.ReserveState("FageBundleLoaderDownload");
 		} else {
 			loader.SetUpdateTime();

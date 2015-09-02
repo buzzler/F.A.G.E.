@@ -5,7 +5,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-[XmlRoot("UIRoot")]
 public	class FageUIRoot {
 	private	static FageUIRoot _instance;
 	public	static FageUIRoot Instance { get { return _instance; } }
@@ -27,6 +26,7 @@ public	class FageUIRoot {
 	private	Dictionary<string, FageUICurtain>		_dicCurtain;
 
 	public	FageUIRoot() {
+		_instance		= this;
 		transitions		= new FageUITransition[0];
 		details			= new FageUIDetail[0];
 		sets			= new FageUISet[0];
@@ -36,7 +36,7 @@ public	class FageUIRoot {
 		_dicCurtain		= new Dictionary<string, FageUICurtain> ();
 	}
 
-	private	void Hashing() {
+	public	void Hashing() {
 		_dicTransition.Clear ();
 		_dicDetail.Clear ();
 		_dicSet.Clear ();
@@ -84,11 +84,11 @@ public	class FageUIRoot {
 			return null;
 	}
 
-	public	static void LoadFromText(string text) {
-		var serializer = new XmlSerializer(typeof(FageUIRoot));
-		_instance = serializer.Deserialize(new StringReader(text)) as FageUIRoot;
-		_instance.Hashing();
-	}
+//	public	static void LoadFromText(string text) {
+//		var serializer = new XmlSerializer(typeof(FageUIRoot));
+//		_instance = serializer.Deserialize(new StringReader(text)) as FageUIRoot;
+//		_instance.Hashing();
+//	}
 }
 
 public	class FageUICurtain {

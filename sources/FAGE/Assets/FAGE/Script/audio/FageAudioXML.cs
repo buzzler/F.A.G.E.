@@ -5,14 +5,14 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-[XmlRoot("AudioRoot")]
 public	class FageAudioRoot : FageAudioBase {
-	private	static FageAudioRoot					_instance;
+	private	static FageAudioRoot _instance;
 	public	static FageAudioRoot Instance { get { return _instance; } }
 
 	private	Dictionary<string, FageAudioXML>	_dictionary;
 
 	public	FageAudioRoot() : base() {
+		_instance = this;
 		_dictionary = new Dictionary<string, FageAudioXML> ();
 	}
 
@@ -36,11 +36,11 @@ public	class FageAudioRoot : FageAudioBase {
 		}
 	}
 
-	public	static void LoadFromText(string text) {
-		var serializer = new XmlSerializer(typeof(FageAudioRoot));
-		_instance = serializer.Deserialize(new StringReader(text)) as FageAudioRoot;
-		_instance.Hashing ();
-	}
+//	public	static void LoadFromText(string text) {
+//		var serializer = new XmlSerializer(typeof(FageAudioRoot));
+//		_instance = serializer.Deserialize(new StringReader(text)) as FageAudioRoot;
+//		_instance.Hashing ();
+//	}
 }
 
 public	class FageAudioXML : FageAudioBase {

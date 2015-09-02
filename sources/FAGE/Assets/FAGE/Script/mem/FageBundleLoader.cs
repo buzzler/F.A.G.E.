@@ -5,10 +5,9 @@ using System.Collections.Generic;
 public class FageBundleLoader : FageStateMachine {
 	private	static FageBundleLoader _instance;
 	public	static FageBundleLoader Instance { get { return _instance; } }
-
-	public	TextAsset					setting;
-	public	bool						flagUpdateBoot;
+	
 	public	bool						flagUpdate;
+	public	bool						flagLoad;
 	public	float						expireTime;
 	private	float						_timeLastUpdate;
 	private	List<string>				_loadedScene;
@@ -23,11 +22,13 @@ public class FageBundleLoader : FageStateMachine {
 		_loadedBundle = new List<string> ();
 		_loadedAsset = new Dictionary<string, object> ();
 		_downloadedBundle = new Dictionary<string, AssetBundle> ();
-		FageBundleRoot.LoadFromText (setting.text);
+	}
 
-		if (flagUpdateBoot) {
-			ReserveState ("FageBundleLoaderCheck");
-		}
+	public	void ReserveUpdate() {
+		flagUpdate = true;
+	}
+	public	void ReserveLoad() {
+		flagLoad = true;
 	}
 
 	public	float GetUpdateTime() {
@@ -35,14 +36,10 @@ public class FageBundleLoader : FageStateMachine {
 	}
 
 	public	void SetUpdateTime() {
-		flagUpdate = false;
+		flagLoad = false;
 		_timeLastUpdate = Time.unscaledTime;
 	}
-
-	public	void ReserveUpdate() {
-		flagUpdate = true;
-	}
-
+	
 	public	List<string> GetLoadedScene() {
 		return _loadedScene;
 	}

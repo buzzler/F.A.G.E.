@@ -7,7 +7,6 @@ public class FageUIManager : FageStateMachine {
 	public	GameObject[]	globalObjects;
 
 	public	Transform		canvas;
-	public	TextAsset		setting;
 	private	Stack			_stackUI;
 	private	Queue			_queueUIPopup;
 	private	Queue			_queueRequest;
@@ -21,11 +20,9 @@ public class FageUIManager : FageStateMachine {
 		_stackUI = new Stack ();
 		_queueUIPopup = new Queue ();
 		_queueRequest = new Queue ();
-
 		for (int i = 0 ; i < globalObjects.Length ; i++) {
 			DontDestroyOnLoad(globalObjects[i]);
 		}
-		FageUIRoot.LoadFromText (setting.text);
 	}
 
 	public	Queue GetRequests() {

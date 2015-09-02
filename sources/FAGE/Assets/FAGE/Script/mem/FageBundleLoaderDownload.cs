@@ -53,17 +53,19 @@ public class FageBundleLoaderDownload : FageState {
 			for (int i = 0 ; i < paths.Length ; i++) {
 				if (!scenes.Contains(paths[i])) {
 					scenes.Add(paths[i]);
-					Debug.Log(paths[i]);
 				}
 			}
 
 			wevent.www.Dispose();
+		} else {
+			FageBundleLoader.Instance.DispatchEvent (new FageBundleEvent(FageBundleEvent.ERROR_NODATA));
+			FageBundleLoader.Instance.ReserveState ("FageBundleLoaderIdle");
+			_hash.Clear();
+			return;
 		}
 
 		_hash.Remove(wevent.requestId);
 		if (_hash.Count == 0) {
-			FageWebLoader.Instance.RemoveEventListener (FageEvent.COMPLETE, OnResponse);
-			FageWebLoader.Instance.RemoveEventListener (FageWebEvent.PROGRESS, OnProgress);
 			FageBundleLoader.Instance.DispatchEvent (new FageBundleEvent(FageBundleEvent.DOWNLOADING, 1f));
 			FageBundleLoader.Instance.ReserveState ("FageBundleLoaderLoad");
 		}
@@ -76,5 +78,7 @@ public class FageBundleLoaderDownload : FageState {
 	public override void BeforeSwitch (FageStateMachine stateMachine, string afterId) {
 		base.BeforeSwitch (stateMachine, afterId);
 		_hash = null;
+		FageWebLoader.Instance.RemoveEventListener (FageEvent.COMPLETE, OnResponse);
+		FageWebLoader.Instance.RemoveEventListener (FageWebEvent.PROGRESS, OnProgress);
 	}
 }
