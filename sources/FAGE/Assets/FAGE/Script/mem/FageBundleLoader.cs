@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class FageBundleLoader : FageStateMachine {
 	private	static FageBundleLoader _instance;
 	public	static FageBundleLoader Instance { get { return _instance; } }
-	
+
+	public	TextAsset					setting;
 	public	bool						flagUpdate;
 	public	bool						flagLoad;
 	public	float						expireTime;
@@ -22,6 +23,7 @@ public class FageBundleLoader : FageStateMachine {
 		_loadedBundle = new List<string> ();
 		_loadedAsset = new Dictionary<string, object> ();
 		_downloadedBundle = new Dictionary<string, AssetBundle> ();
+		FageConfig.LoadFromText(setting.text);
 	}
 
 	public	void ReserveUpdate() {

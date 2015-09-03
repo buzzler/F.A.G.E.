@@ -20,8 +20,6 @@ public class FageUIManagerLoad : FageState {
 		if (_async != null) {
 			if (_async.isDone)
 				manager.ReserveState ("FageUIManagerCurtOpen");
-			else
-				Debug.Log(_async.progress);
 		} else {
 			manager.GetRequests().Dequeue();
 			manager.ReserveState ("FageUIManagerIdle");
