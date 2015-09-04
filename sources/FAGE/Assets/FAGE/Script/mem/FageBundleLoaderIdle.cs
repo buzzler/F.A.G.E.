@@ -10,6 +10,9 @@ public class FageBundleLoaderIdle : FageState {
 			loader.ReserveState("FageBundleLoaderCheck");
 		} else if (loader.flagLoad) {
 			loader.ReserveState("FageBundleLoaderLoad");
+		} else if (loader.flagDownload) {
+			loader.flagDownload = false;
+			loader.ReserveState("FageBundleLoaderDownload");
 		}
 	}
 }

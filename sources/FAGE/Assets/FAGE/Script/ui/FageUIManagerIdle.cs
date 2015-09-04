@@ -75,7 +75,10 @@ public class FageUIManagerIdle : FageState {
 	}
 
 	private	void ExcuteLevel(FageUIManager manager, FageUIRequest request) {
-		manager.ReserveState ("FageUIManagerCurtClose");
+		if (request.uiCurtain != null)
+			manager.ReserveState ("FageUIManagerCurtClose");
+		else
+			manager.ReserveState("FageUIManagerLoad");
 	}
 
 	public override void BeforeSwitch (FageStateMachine stateMachine, string afterId) {

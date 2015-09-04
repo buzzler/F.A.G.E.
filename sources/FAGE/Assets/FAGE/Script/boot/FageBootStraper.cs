@@ -4,15 +4,18 @@ using System.Collections;
 
 public class FageBootStraper : MonoBehaviour {
 	public	Text	textMessage;
+	public	Text	textProcessing;
 	public	Slider	sliderPercentage;
 	public	string	firstScene;
 	public	string	firstCurtain;
+	public	string	firstUISet;
 	private	float	_target;
 	private	float	_step;
 	private	bool	_animate;
 
 	void Awake() {
 		textMessage.text = "";
+		textProcessing.text = "";
 		sliderPercentage.value = 0f;
 		_target = 0f;
 		_step = 0.01f;
@@ -26,6 +29,8 @@ public class FageBootStraper : MonoBehaviour {
 		loader.AddEventListener(FageBundleEvent.LOADING,		OnLoading);
 		loader.AddEventListener(FageBundleEvent.COMPLETE,		OnComplete);
 		loader.AddEventListener(FageBundleEvent.ERROR_NODATA,	OnError);
+		InvokeRepeating("UpdateProcessing", 0.5f, 0.5f);
+
 		loader.ReserveUpdate();
 	}
 
@@ -35,10 +40,9 @@ public class FageBootStraper : MonoBehaviour {
 		}
 
 		if (sliderPercentage.value >= 1) {
-			if ((string.IsNullOrEmpty(firstScene)!=true) && (string.IsNullOrEmpty(firstCurtain)!=true)) {
-				LeanTween.scale(transform as RectTransform, Vector3.zero, 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(OnAnimationComplete);
-				_animate = true;
-			}
+			RemoveListeners();
+			LeanTween.scale(transform as RectTransform, Vector3.zero, 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(OnAnimationComplete);
+			_animate = true;
 		} else if (sliderPercentage.value != _target) {
 			float temp = _target - sliderPercentage.value;
 			temp = Mathf.Min(temp, _step);
@@ -47,8 +51,15 @@ public class FageBootStraper : MonoBehaviour {
 	}
 
 	private	void OnAnimationComplete() {
-		RemoveListeners();
-		FageUIManager.Instance.Level(firstScene, FageUIRoot.Instance.FindUICurtain(firstCurtain));
+		FageUIManager manager = FageUIManager.Instance;
+		FageUIRoot root = FageUIRoot.Instance;
+
+		if ((string.IsNullOrEmpty(firstScene)!=true) && (string.IsNullOrEmpty(firstCurtain)!=true)) {
+			manager.Level(firstScene, root.FindUICurtain(firstCurtain));
+		}
+		if (string.IsNullOrEmpty(firstUISet)!=true) {
+			manager.Change(root.FindUISet(firstUISet));
+		}
 		Destroy(gameObject);
 	}
 
@@ -75,6 +86,15 @@ public class FageBootStraper : MonoBehaviour {
 		Invoke("OnExit", 3f);
 	}
 
+	private	void UpdateProcessing() {
+		int num = (textProcessing.text.Length + 1) % 5;
+		string dot = "";
+		for (int i = 0 ; i < num ; i++) {
+			dot += ".";
+		}
+		textProcessing.text = dot;
+	}
+
 	private	void RemoveListeners() {
 		FageBundleLoader loader = FageBundleLoader.Instance;
 		loader.RemoveEventListener(FageBundleEvent.CHECK_UPDATE,OnCheck);
@@ -82,6 +102,7 @@ public class FageBootStraper : MonoBehaviour {
 		loader.RemoveEventListener(FageBundleEvent.LOADING,		OnLoading);
 		loader.RemoveEventListener(FageBundleEvent.COMPLETE,	OnComplete);
 		loader.RemoveEventListener(FageBundleEvent.ERROR_NODATA,OnError);
+		CancelInvoke();
 	}
 
 	private	void OnExit() {

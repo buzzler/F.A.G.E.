@@ -2,17 +2,17 @@ ManifestFileVersion: 0
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: bundle1.unity3d
+      Name: bundle5.unity3d
       Dependencies: {}
     Info_1:
-      Name: bundle2.unity3d
+      Name: bundle4.unity3d
       Dependencies: {}
     Info_2:
       Name: bundle3.unity3d
       Dependencies: {}
     Info_3:
-      Name: bundle5.unity3d
+      Name: bundle2.unity3d
       Dependencies: {}
     Info_4:
-      Name: bundle4.unity3d
+      Name: bundle1.unity3d
       Dependencies: {}

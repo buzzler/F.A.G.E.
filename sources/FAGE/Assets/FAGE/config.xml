@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/util/bundle/setting.xml">
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/util/bundle/config.xml">
 	<BundleRoot>
 	  <Bundle id="bundle1" dynamic="false" ios="http://file.unityscene.com/util/bundle/ios/bundle1.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle1.unity3d" version="1" />
 	  <Bundle id="bundle2" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle2.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle2.unity3d" version="1" />

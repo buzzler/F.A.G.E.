@@ -39,15 +39,19 @@ public class FageWebLoader : FageEventDispatcher {
 				FageWebState current = _queue.Peek() as FageWebState;
 				DispatchEvent (new FageWebEvent (FageWebEvent.PROGRESS, current.requestId, _www.progress));
 			}
-		} else if ((_queue.Count > 0) && _excute) {
+		} else if (_queue.Count > 0) {
 			FageWebState current = _queue.Peek() as FageWebState;
-			if (current.version < 0) {
-				if (current.wwwForm != null) {
-					_www = new WWW (current.url, current.wwwForm);
+			if (_excute) {
+				if (current.version < 0) {
+					if (current.wwwForm != null) {
+						_www = new WWW (current.url, current.wwwForm);
+					} else {
+						_www = new WWW (current.url);
+					}
 				} else {
-					_www = new WWW (current.url);
+					_www = WWW.LoadFromCacheOrDownload(current.url, current.version);
 				}
-			} else {
+			} else if (Caching.IsVersionCached(current.url, current.version)) {
 				_www = WWW.LoadFromCacheOrDownload(current.url, current.version);
 			}
 		}

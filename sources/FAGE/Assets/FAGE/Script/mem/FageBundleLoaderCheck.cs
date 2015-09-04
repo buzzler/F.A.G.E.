@@ -7,10 +7,33 @@ public class FageBundleLoaderCheck : FageState {
 
 	public override void AfterSwitch (FageStateMachine stateMachine, string beforeId) {
 		base.AfterSwitch (stateMachine, beforeId);
-		FageWebLoader.Instance.AddEventListener(FageEvent.COMPLETE, OnResponse);
-		_requestId = FageWebLoader.Instance.Request(FageConfig.Instance.url);
+		FageConnectionManager.Instance.AddEventListener(FageEvent.SENSOR_ONLINE, OnOnline);
+		FageConnectionManager.Instance.AddEventListener(FageEvent.SENSOR_OFFLINE, OnOffline);
 
-		stateMachine.DispatchEvent (new FageBundleEvent(FageBundleEvent.CHECK_UPDATE));
+		if (FageConnectionManager.Instance.IsOnline()) {
+			FageWebLoader.Instance.AddEventListener(FageEvent.COMPLETE, OnResponse);
+			OnOnline(null);
+		} else {
+			OnOffline(null);
+		}
+	}
+
+	private	void OnOnline(FageEvent fevent) {
+		_requestId = FageWebLoader.Instance.Request(FageConfig.Instance.url);
+		FageBundleLoader.Instance.DispatchEvent (new FageBundleEvent(FageBundleEvent.CHECK_UPDATE));
+	}
+
+	private	void OnOffline(FageEvent fevent) {
+		_requestId = -1;
+
+		FageBundleLoader loader = FageBundleLoader.Instance;
+		if (Utility.HasKey(_KEY)) {
+			FageConfig.LoadFromText(Utility.GetPrefString(_KEY));
+			loader.ReserveState("FageBundleLoaderDownload");
+		} else {
+			loader.SetUpdateTime();
+			loader.ReserveState("FageBundleLoaderDownload");
+		}
 	}
 
 	private	void OnResponse(FageEvent fevent) {
@@ -18,20 +41,14 @@ public class FageBundleLoaderCheck : FageState {
 		if ((wevent == null) || (wevent.requestId != _requestId))
 			return;
 
-		FageBundleLoader loader = FageBundleLoader.Instance;
 		FageWebLoader.Instance.RemoveEventListener(FageEvent.COMPLETE, OnResponse);
 		if (string.IsNullOrEmpty(wevent.www.error)) {
 			string str = wevent.www.text;
 			FageConfig.LoadFromText(str);
 			Utility.SetPrefString(_KEY, str);
-			loader.ReserveState("FageBundleLoaderDownload");
-			Debug.Log(str);
-		} else if (Utility.HasKey(_KEY)) {
-			FageConfig.LoadFromText(Utility.GetPrefString(_KEY));
-			loader.ReserveState("FageBundleLoaderDownload");
+			FageBundleLoader.Instance.ReserveState("FageBundleLoaderDownload");
 		} else {
-			loader.SetUpdateTime();
-			loader.ReserveState("FageBundleLoaderDownload");
+			OnOffline(null);
 		}
 	}
 

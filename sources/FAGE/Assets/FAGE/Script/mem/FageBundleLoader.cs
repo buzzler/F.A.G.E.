@@ -9,6 +9,7 @@ public class FageBundleLoader : FageStateMachine {
 	public	TextAsset					setting;
 	public	bool						flagUpdate;
 	public	bool						flagLoad;
+	public	bool						flagDownload;
 	public	float						expireTime;
 	private	float						_timeLastUpdate;
 	private	List<string>				_loadedScene;
@@ -31,6 +32,10 @@ public class FageBundleLoader : FageStateMachine {
 	}
 	public	void ReserveLoad() {
 		flagLoad = true;
+	}
+
+	public	void ReserveDownload() {
+		flagDownload = true;
 	}
 
 	public	float GetUpdateTime() {
@@ -100,11 +105,12 @@ public class FageBundleLoader : FageStateMachine {
 	}
 
 	public	object Load(string asset, string bundle) {
-		if (_loadedAsset.ContainsKey (asset))
+		if (_loadedAsset.ContainsKey (asset)) {
 			return _loadedAsset [asset];
-		else if (_downloadedBundle.ContainsKey (bundle))
+		} else if (_downloadedBundle.ContainsKey (bundle)) {
 			return _downloadedBundle [bundle].LoadAsset (asset);
-		else
+		} else {
 			return Resources.Load (asset);
+		}
 	}
 }
