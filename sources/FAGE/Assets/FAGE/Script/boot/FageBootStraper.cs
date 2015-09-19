@@ -31,6 +31,7 @@ public class FageBootStraper : MonoBehaviour {
 		loader.AddEventListener(FageBundleEvent.ERROR_NODATA,	OnError);
 		InvokeRepeating("UpdateProcessing", 0.5f, 0.5f);
 
+		Caching.CleanCache();
 		loader.ReserveUpdate();
 	}
 
