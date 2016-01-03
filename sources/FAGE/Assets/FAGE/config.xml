@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/util/bundle/config.xml">
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" url="http://file.unityscene.com/util/fage/config.xml">
 	<BundleRoot>
-	  <Bundle id="fage" dynamic="false" ios="http://file.unityscene.com/util/bundle/ios/fage.unity3d" android="http://file.unityscene.com/util/bundle/android/fage.unity3d" version="1" />	
-	  <Bundle id="bundle1" dynamic="false" ios="http://file.unityscene.com/util/bundle/ios/bundle1.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle1.unity3d" version="1" />
-	  <Bundle id="bundle2" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle2.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle2.unity3d" version="1" />
-	  <Bundle id="bundle3" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle3.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle3.unity3d" version="1" />
-	  <Bundle id="bundle4" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle4.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle4.unity3d" version="1" />
-	  <Bundle id="bundle5" dynamic="true" ios="http://file.unityscene.com/util/bundle/ios/bundle5.unity3d" android="http://file.unityscene.com/util/bundle/android/bundle5.unity3d" version="1" />
+	  <Bundle id="fage" dynamic="false" ios="http://file.unityscene.com/util/fage/iOS/fage.unity3d" android="http://file.unityscene.com/util/fage/Android/fage.unity3d" version="1" />	
+	  <Bundle id="bundle1" dynamic="false" ios="http://file.unityscene.com/util/fage/iOS/bundle1.unity3d" android="http://file.unityscene.com/util/fage/Android/bundle1.unity3d" version="1" />
+	  <Bundle id="bundle2" dynamic="true" ios="http://file.unityscene.com/util/fage/iOS/bundle2.unity3d" android="http://file.unityscene.com/util/fage/Android/bundle2.unity3d" version="1" />
+	  <Bundle id="bundle3" dynamic="true" ios="http://file.unityscene.com/util/fage/iOS/bundle3.unity3d" android="http://file.unityscene.com/util/fage/Android/bundle3.unity3d" version="1" />
+	  <Bundle id="bundle4" dynamic="true" ios="http://file.unityscene.com/util/fage/iOS/bundle4.unity3d" android="http://file.unityscene.com/util/fage/Android/bundle4.unity3d" version="1" />
+	  <Bundle id="bundle5" dynamic="true" ios="http://file.unityscene.com/util/fage/iOS/bundle5.unity3d" android="http://file.unityscene.com/util/fage/Android/bundle5.unity3d" version="1" />
 	</BundleRoot>
 	<UIRoot>
 	  <UITransition id="trans.popin" posX="0" posY="0" posZ="0" rotX="0" rotY="0" rotZ="0" scaleX="0" scaleY="0" scaleZ="0" time="0.5" delay="0" easetype="easeOutElastic" />

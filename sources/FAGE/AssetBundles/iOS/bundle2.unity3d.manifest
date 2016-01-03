@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 4073300401
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9ec39ef734aa32389236561aac614ac6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0bdca289edfa5288eb06f33d07b8e6c7
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4a16b39a81de7477ca9f6a74c985002e, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Bundle/Audio/POL-interstellar-short.wav
+- Assets/Bundle/Prefab/scene2.prefab
+Dependencies: []
